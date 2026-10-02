@@ -1,0 +1,15 @@
+{
+  "name": "sarab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "encode": "scripts/encode.sh"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}

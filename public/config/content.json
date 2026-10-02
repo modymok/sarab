@@ -1,0 +1,122 @@
+{
+  "$comment": "Demo content. All figures are fabricated for the POC. Every user-facing string is {ar, en}.",
+  "ui": {
+    "brand": { "ar": "فلل الأفق", "en": "Al Ufuq Villas" },
+    "langSwitch": { "ar": "English", "en": "العربية" },
+    "back": { "ar": "رجوع", "en": "Back" },
+    "explore": { "ar": "استكشف", "en": "Explore" },
+    "loading": { "ar": "جارٍ تجهيز المشهد", "en": "Preparing the scene" },
+    "bookVisit": { "ar": "احجز موعد زيارة", "en": "Book a site visit" },
+    "demoOnly": { "ar": "هذا عرض تجريبي، الحجز غير مفعّل", "en": "This is a demo. Booking is turned off." },
+    "status": {
+      "available": { "ar": "متاحة", "en": "Available" },
+      "reserved": { "ar": "محجوزة", "en": "Reserved" },
+      "sold": { "ar": "مباعة", "en": "Sold" }
+    },
+    "sar": { "ar": "ر.س", "en": "SAR" },
+    "sqm": { "ar": "م²", "en": "m²" },
+    "editHint": { "ar": "وضع التحرير: انقر لقراءة الإحداثيات", "en": "Edit mode: click to read coordinates" }
+  },
+
+  "views": {
+    "main": {
+      "title": { "ar": "فلل الأفق", "en": "Al Ufuq Villas" },
+      "subtitle": { "ar": "حي الياسمين، شمال الرياض", "en": "Al Yasmin, north Riyadh" },
+      "lead": {
+        "ar": "مجتمع سكني متكامل من 312 فيلا بطابع نجدي معاصر، تتوسطه ممشى مظلل بالنخيل ومسجد جامع.",
+        "en": "A walkable community of 312 villas in a modern Najdi style, built around a palm-shaded promenade and a central mosque."
+      },
+      "stats": [
+        { "label": { "ar": "فيلا", "en": "Villas" }, "value": "312" },
+        { "label": { "ar": "متاحة الآن", "en": "Available now" }, "value": "41" },
+        { "label": { "ar": "مساحة المشروع", "en": "Site area" }, "value": "186,000", "unit": "sqm" },
+        { "label": { "ar": "التسليم", "en": "Handover" }, "value": { "ar": "الربع الرابع 2027", "en": "Q4 2027" } }
+      ],
+      "features": [
+        { "ar": "ممشى مظلل بطول 1.2 كم", "en": "1.2 km shaded promenade" },
+        { "ar": "مسجد جامع يتسع لـ 1200 مصلٍ", "en": "Friday mosque for 1,200 worshippers" },
+        { "ar": "حدائق وملاعب أطفال", "en": "Parks and children's play areas" },
+        { "ar": "نادٍ اجتماعي ومحلات تجارية", "en": "Clubhouse and neighbourhood retail" }
+      ],
+      "pins": {
+        "building": { "title": { "ar": "المبنى أ", "en": "Building A" }, "note": { "ar": "6 وحدات متاحة", "en": "6 units available" } },
+        "mosque": { "title": { "ar": "الجامع", "en": "The mosque" }, "note": { "ar": "قلب المجتمع", "en": "Heart of the community" } }
+      }
+    },
+
+    "building": {
+      "title": { "ar": "المبنى أ", "en": "Building A" },
+      "subtitle": { "ar": "الواجهة الشمالية على الممشى", "en": "North front, facing the promenade" },
+      "lead": {
+        "ar": "صف من الفلل المتصلة بواجهات مشربية، على بعد دقيقتين سيرًا من الجامع.",
+        "en": "A row of linked villas with mashrabiya screens, a two-minute walk from the mosque."
+      },
+      "stats": [
+        { "label": { "ar": "وحدة", "en": "Units" }, "value": "24" },
+        { "label": { "ar": "متاحة", "en": "Available" }, "value": "6" },
+        { "label": { "ar": "الأدوار", "en": "Floors" }, "value": "3" },
+        { "label": { "ar": "يبدأ من", "en": "From" }, "value": "1,180,000", "unit": "sar" }
+      ],
+      "units": [
+        { "id": "A-12", "floor": { "ar": "الدور العلوي", "en": "Top floor" }, "area": 186, "beds": 3, "price": 1450000, "status": "available", "go": "floor" },
+        { "id": "A-11", "floor": { "ar": "الدور العلوي", "en": "Top floor" }, "area": 182, "beds": 3, "price": 1420000, "status": "reserved" },
+        { "id": "A-07", "floor": { "ar": "الدور الأول", "en": "First floor" }, "area": 164, "beds": 3, "price": 1260000, "status": "available" },
+        { "id": "A-03", "floor": { "ar": "الدور الأرضي", "en": "Ground floor" }, "area": 158, "beds": 2, "price": 1180000, "status": "sold" }
+      ],
+      "pins": {
+        "unit-a12": { "title": { "ar": "الوحدة A-12", "en": "Unit A-12" }, "note": { "ar": "الدور العلوي، متاحة", "en": "Top floor, available" } }
+      }
+    },
+
+    "mosque": {
+      "title": { "ar": "الجامع", "en": "The mosque" },
+      "subtitle": { "ar": "على الساحة المركزية", "en": "On the central plaza" },
+      "lead": {
+        "ar": "جامع بمئذنة مشربية بارتفاع 38 مترًا، وساحة مظللة تستقبل السكان قبل الصلاة وبعدها.",
+        "en": "A Friday mosque with a 38 m lattice minaret and a shaded plaza where neighbours gather before and after prayer."
+      },
+      "stats": [
+        { "label": { "ar": "المصلون", "en": "Worshippers" }, "value": "1,200" },
+        { "label": { "ar": "مصلى النساء", "en": "Women's hall" }, "value": "250" },
+        { "label": { "ar": "المساحة", "en": "Built area" }, "value": "3,400", "unit": "sqm" },
+        { "label": { "ar": "من المبنى أ", "en": "From Building A" }, "value": { "ar": "4 دقائق سيرًا", "en": "4 min walk" } }
+      ],
+      "features": [
+        { "ar": "ساحة مظللة بالنخيل", "en": "Palm-shaded forecourt" },
+        { "ar": "مواضئ منفصلة للرجال والنساء", "en": "Separate ablution areas" },
+        { "ar": "120 موقفًا للسيارات", "en": "120 parking spaces" },
+        { "ar": "مكتبة وحلقات تحفيظ", "en": "Library and Quran classes" }
+      ]
+    },
+
+    "floor": {
+      "title": { "ar": "الوحدة A-12", "en": "Unit A-12" },
+      "subtitle": { "ar": "الدور العلوي، المبنى أ", "en": "Top floor, Building A" },
+      "lead": {
+        "ar": "ثلاث غرف نوم حول فناء داخلي مزروع، مع مطبخ مفتوح وسطح خاص.",
+        "en": "Three bedrooms around a planted inner courtyard, with an open kitchen and a private roof terrace."
+      },
+      "status": "available",
+      "price": 1450000,
+      "stats": [
+        { "label": { "ar": "المساحة", "en": "Area" }, "value": "186", "unit": "sqm" },
+        { "label": { "ar": "غرف النوم", "en": "Bedrooms" }, "value": "3" },
+        { "label": { "ar": "دورات المياه", "en": "Bathrooms" }, "value": "3" },
+        { "label": { "ar": "المواقف", "en": "Parking" }, "value": "2" }
+      ],
+      "features": [
+        { "ar": "غرفة خادمة", "en": "Maid's room" },
+        { "ar": "واجهة شمالية", "en": "North facing" },
+        { "ar": "سطح خاص 32 م²", "en": "Private roof terrace, 32 m²" }
+      ],
+      "rooms": {
+        "master": { "title": { "ar": "غرفة النوم الرئيسية", "en": "Main bedroom" }, "area": 24, "note": { "ar": "حمام داخلي وخزانة ملابس", "en": "En-suite bathroom and walk-in wardrobe" } },
+        "bed2": { "title": { "ar": "غرفة النوم الثانية", "en": "Second bedroom" }, "area": 18, "note": { "ar": "نافذة على الفناء", "en": "Window onto the courtyard" } },
+        "bed3": { "title": { "ar": "غرفة النوم الثالثة", "en": "Third bedroom" }, "area": 16, "note": { "ar": "مناسبة كمكتب أو غرفة أطفال", "en": "Works as a study or a child's room" } },
+        "kitchen": { "title": { "ar": "المطبخ", "en": "Kitchen" }, "area": 14, "note": { "ar": "مفتوح على المعيشة، بجزيرة وسطية", "en": "Open to the living area, with an island" } },
+        "courtyard": { "title": { "ar": "الفناء الداخلي", "en": "Inner courtyard" }, "area": 12, "note": { "ar": "يدخل الضوء والهواء لكل الغرف", "en": "Brings light and air to every room" } },
+        "terrace": { "title": { "ar": "الشرفة", "en": "Terrace" }, "area": 9, "note": { "ar": "إطلالة على الممشى", "en": "Looks over the promenade" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+node_modules
+dist
+.DS_Store
+*.local
+# raw renders live outside the repo; only encoded web clips in public/videos are committed
+raw/

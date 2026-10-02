@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>فلل الأفق</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2212%22 fill=%22%23e9dcc6%22/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600&family=Reem+Kufi:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body data-moving="1">
+  <!-- 16:9 stage that always covers the viewport; videos and pins share its coordinate space -->
+  <div class="stage" id="stage">
+    <div class="clips" id="clips"></div>
+    <div class="pins" id="pins"></div>
+  </div>
+  <div class="veil"></div>
+
+  <header class="top">
+    <div class="glass brand" id="brand"></div>
+    <nav class="glass crumbs" id="crumbs" aria-label="breadcrumb"></nav>
+    <button class="glass lang" id="lang" type="button"></button>
+  </header>
+
+  <section class="hero" aria-live="polite">
+    <button class="glass back" id="back" type="button" hidden></button>
+    <h1 class="title" id="title"></h1>
+    <p class="subtitle" id="subtitle"></p>
+  </section>
+
+  <aside class="glass panel" id="panel"></aside>
+
+  <div class="loader" id="loader">
+    <p id="loaderText"></p>
+    <div class="bar"><i id="loaderBar"></i></div>
+  </div>
+  <div class="glass toast" id="toast" role="status" hidden></div>
+</body>
+</html>
