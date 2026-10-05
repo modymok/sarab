@@ -14,11 +14,13 @@ let lang = 'ar';
 try { lang = localStorage.getItem('sarab.lang') || 'ar'; } catch {}
 let current = scenes.start;
 let activeInfo = null;
+let room = null; // hotspot whose 360° view is open
 let busy = false;
 
 const t = (v) => (v && typeof v === 'object' && 'ar' in v ? v[lang] : v);
 const ui = (k) => t(content.ui[k]);
 const num = (n) => new Intl.NumberFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-US').format(n);
+const comma = () => (lang === 'ar' ? '، ' : ', ');
 const unit = (u) => (u ? ` <bdi>${ui(u)}</bdi>` : '');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -101,6 +103,53 @@ async function navigate(target) {
   busy = false;
 }
 
+// ---------- 360° rooms ----------
+let pano;
+const panoRooms = () => scenes.views[current].hotspots.filter((h) => h.pano);
+
+// Dive: the floor-plan video scales up around the clicked pin while the panorama fades in over it.
+async function openRoom(id) {
+  const h = scenes.views[current].hotspots.find((x) => x.id === id && x.pano);
+  if (busy || !h) return;
+  busy = true;
+  const first = !room;
+  document.body.dataset.moving = '1';
+  if (first) {
+    stage.style.setProperty('--ox', `${h.x * 100}%`);
+    stage.style.setProperty('--oy', `${h.y * 100}%`);
+  } else {
+    $('pano').classList.add('swap');
+    await wait(250);
+  }
+  pano ??= (await import('./pano.js')).createPano($('pano'));
+  await pano.load(h.pano);
+  room = id;
+  activeInfo = h.info;
+  pano.start();
+  document.body.dataset.room = '1';
+  $('pano').classList.remove('swap');
+  render();
+  await wait(first ? 900 : 250);
+  shown?.pause();
+  document.body.dataset.moving = '';
+  $('pano').focus({ preventScroll: true });
+  busy = false;
+}
+
+async function closeRoom() {
+  if (busy || !room) return;
+  busy = true;
+  document.body.dataset.moving = '1';
+  shown?.play().catch(() => {});
+  delete document.body.dataset.room;
+  room = null;
+  await wait(900);
+  pano.stop();
+  render();
+  document.body.dataset.moving = '';
+  busy = false;
+}
+
 // ---------- UI ----------
 function renderPins() {
   const view = scenes.views[current];
@@ -108,9 +157,9 @@ function renderPins() {
   $('pins').innerHTML = view.hotspots.map((h) => {
     const p = h.info ? copy.rooms[h.info] : copy.pins[h.id];
     const note = h.info ? `${num(p.area)}${unit('sqm')}` : esc(t(p.note));
-    return `<button class="pin ${h.info ? 'pin-info' : 'pin-go'} ${activeInfo === h.info && h.info ? 'is-active' : ''}"
-      style="--x:${h.x};--y:${h.y}" data-go="${h.go || ''}" data-info="${h.info || ''}" type="button">
-      <span class="dot"></span>
+    return `<button class="pin ${h.info ? 'pin-info' : 'pin-go'} ${h.pano ? 'pin-360' : ''} ${activeInfo === h.info && h.info ? 'is-active' : ''}"
+      style="--x:${h.x};--y:${h.y}" data-go="${h.go || ''}" data-info="${h.info || ''}" data-open="${h.pano ? h.id : ''}" type="button">
+      <span class="dot">${h.pano ? '<i dir="ltr">360°</i>' : ''}</span>
       <span class="glass tag"><b>${esc(t(p.title))}</b><small>${note}</small></span>
     </button>`;
   }).join('');
@@ -123,7 +172,7 @@ function renderPanel() {
   const units = c.units ? `<ul class="units">${c.units.map((u) => `
       <li class="unit ${u.go ? 'is-link' : ''}" ${u.go ? `data-go="${u.go}" tabindex="0" role="button"` : ''}>
         <span class="u-id">${esc(u.id)}</span>
-        <span class="u-meta">${esc(t(u.floor))}, ${num(u.area)}${unit('sqm')}</span>
+        <span class="u-meta">${esc(t(u.floor))}${comma()}${num(u.area)}${unit('sqm')}</span>
         <span class="u-price">${num(u.price)}${unit('sar')}</span>
         <span class="chip s-${u.status}">${esc(t(content.ui.status[u.status]))}</span>
       </li>`).join('')}</ul>` : '';
@@ -143,17 +192,25 @@ function render() {
   document.title = ui('brand');
   $('brand').textContent = ui('brand');
   $('lang').textContent = ui('langSwitch');
-  $('title').textContent = t(c.title);
-  $('subtitle').textContent = t(c.subtitle);
+  const r = room && c.rooms[activeInfo];
+  $('title').textContent = t(r ? r.title : c.title);
+  $('subtitle').innerHTML = r ? `${num(r.area)}${unit('sqm')}${comma()}${esc(t(r.note))}` : esc(t(c.subtitle));
   $('loaderText').textContent = ui('loading');
   const parent = scenes.views[current].parent;
   const back = $('back');
   back.hidden = !parent;
-  back.textContent = ui('back');
+  back.textContent = ui(room ? 'backToPlan' : 'back');
   $('crumbs').hidden = !parent;
-  $('crumbs').innerHTML = chain(current)
-    .map((id) => (id === current ? `<span aria-current="page">${esc(t(content.views[id].title))}</span>` : `<button type="button" data-go="${id}">${esc(t(content.views[id].title))}</button>`))
+  const crumbs = chain(current).map((id) => [id, t(content.views[id].title)]);
+  if (r) crumbs.push([null, t(r.title)]);
+  $('crumbs').innerHTML = crumbs
+    .map(([id, label], i) => (i === crumbs.length - 1 ? `<span aria-current="page">${esc(label)}</span>` : `<button type="button" data-go="${id}">${esc(label)}</button>`))
     .join('<i aria-hidden="true">/</i>');
+  $('hint').textContent = ui('lookAround');
+  $('roombar').setAttribute('aria-label', ui('rooms360'));
+  $('roombar').innerHTML = panoRooms()
+    .map((h) => `<button type="button" data-open="${h.id}" ${h.id === room ? 'aria-current="true"' : ''}>${esc(t(c.rooms[h.info].title))}</button>`)
+    .join('');
   renderPins();
   renderPanel();
 }
@@ -167,18 +224,21 @@ function toast(msg) {
 }
 
 // ---------- events ----------
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
   const go = e.target.closest('[data-go]')?.dataset.go;
   const info = e.target.closest('[data-info]')?.dataset.info;
-  if (go) return navigate(go);
+  const pick = e.target.closest('[data-open]')?.dataset.open;
+  if (pick) return pick === room ? undefined : openRoom(pick);
+  if (go) { if (room) await closeRoom(); return navigate(go); }
   if (info) { activeInfo = activeInfo === info ? null : info; renderPins(); renderPanel(); return; }
   if (e.target.closest('[data-demo]')) return toast(ui('demoOnly'));
 });
+const up = () => (room ? closeRoom() : navigate(scenes.views[current].parent));
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && scenes.views[current].parent) navigate(scenes.views[current].parent);
+  if (e.key === 'Escape' && scenes.views[current].parent) up();
   if (e.key === 'Enter' && e.target.dataset?.go) navigate(e.target.dataset.go);
 });
-$('back').addEventListener('click', () => navigate(scenes.views[current].parent));
+$('back').addEventListener('click', up);
 $('lang').addEventListener('click', () => {
   lang = lang === 'ar' ? 'en' : 'ar';
   try { localStorage.setItem('sarab.lang', lang); } catch {}

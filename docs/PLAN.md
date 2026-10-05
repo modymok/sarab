@@ -31,6 +31,7 @@ The trick:
 | Config | `public/config/scenes.json` (graph + hotspots), `content.json` (bilingual copy + fabricated data) | Swap footage/project without touching code. |
 | i18n | Arabic default (RTL), English toggle, Latin digits in both | Saudi market norm for prices/areas. |
 | Encoding | `scripts/encode.sh` → H.264 8-bit 1080p, GOP 12, faststart, posters | Raw set mixes HEVC 10-bit (no Firefox/most Windows). |
+| 360° rooms | three.js (lazy-loaded chunk), equirectangular image inside a sphere; drag / wheel / pinch / arrow keys | Floor-plan pins with `pano` dive in: the video scales around the pin while the room fades in. |
 | UI | Milk-glass panels (backdrop-filter), Reem Kufi display + Readex Pro UI | Matches the warm sunset renders; Kufic echoes the mosque. |
 
 Dev helper: open `/?edit`, click the video → normalized `x/y` is logged + copied for `scenes.json`.
@@ -60,6 +61,15 @@ Dev helper: open `/?edit`, click the video → normalized `x/y` is logged + copi
 - Floor zoom clips were delivered at 854×480 (others 1920×1080) — re-render at 1080p.
 - Zoom-in clips came as 48 Mbps HEVC 10-bit; export H.264 (or ProRes masters) and let `encode.sh` compress.
 - Filenames have typos (`Mosqe`, `Zoon`). Proposed convention: `<from>__<to>.mp4`, idle = `<view>__<view>.mp4`.
+
+### 360° interiors (delivered 2026-10-05)
+
+- `living.jpg` (1), `dining.jpg` (2, shown as "Family room"), `kitchen.jpg` (3), wired to floor-plan pins in `scenes.json`.
+- All three are 1600 px wide, which looks soft full-screen. Deliver **6000×3000 or larger**, 2:1, JPEG q85.
+- **None of them wrap**: the left and right edges don't meet (visible seam). The viewer stops the turn before the seam.
+  A true 360° render (Unreal/V-Ray/Corona spherical camera) wraps cleanly; then add a `wraps` flag and remove the limit.
+- `dining.jpg` is 1600×699 (not 2:1), so it has no ceiling/floor poles. The viewer builds only the band it covers and limits tilt.
+- No bedroom panorama yet. Add `"pano": "panos/<file>.jpg"` to any floor hotspot to enable one.
 
 ## 5. Roadmap (only if the POC convinces)
 

@@ -4,7 +4,7 @@ POC: a real-estate explorer driven by pre-rendered video. Idle loops plus zoom t
 Arabic (default) and English. The demo content is fabricated.
 
 ```
-main ──▶ building ──▶ floor (unit A-12, room hotspots)
+main ──▶ building ──▶ floor (unit A-12, room hotspots) ──▶ 360° rooms (kitchen, family, living)
   └────▶ mosque
 ```
 

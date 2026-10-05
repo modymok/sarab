@@ -1,5 +1,5 @@
 {
-  "$comment": "View graph. Each view loops one idle clip. Hotspot x/y are 0..1 of the 1920x1080 frame (open the app with ?edit and click to read coordinates). 'go' = move to a view through transitions[from>to]; 'info' = open a detail inside the current view.",
+  "$comment": "View graph. Each view loops one idle clip. Hotspot x/y are 0..1 of the 1920x1080 frame (open the app with ?edit and click to read coordinates). 'go' = move to a view through transitions[from>to]; 'info' = open a detail inside the current view. 'pano' = equirectangular image opened as a 360° room view (three.js).",
   "fadeMs": 450,
   "start": "main",
   "views": {
@@ -7,15 +7,30 @@
       "idle": "main",
       "parent": null,
       "hotspots": [
-        { "id": "building", "x": 0.17, "y": 0.5, "go": "building" },
-        { "id": "mosque", "x": 0.6, "y": 0.3, "go": "mosque" }
+        {
+          "id": "building",
+          "x": 0.17,
+          "y": 0.5,
+          "go": "building"
+        },
+        {
+          "id": "mosque",
+          "x": 0.6,
+          "y": 0.3,
+          "go": "mosque"
+        }
       ]
     },
     "building": {
       "idle": "building",
       "parent": "main",
       "hotspots": [
-        { "id": "unit-a12", "x": 0.4, "y": 0.42, "go": "floor" }
+        {
+          "id": "unit-a12",
+          "x": 0.4,
+          "y": 0.42,
+          "go": "floor"
+        }
       ]
     },
     "mosque": {
@@ -27,12 +42,57 @@
       "idle": "floor",
       "parent": "building",
       "hotspots": [
-        { "id": "bed2", "x": 0.38, "y": 0.36, "info": "bed2" },
-        { "id": "kitchen", "x": 0.58, "y": 0.22, "info": "kitchen" },
-        { "id": "courtyard", "x": 0.55, "y": 0.46, "info": "courtyard" },
-        { "id": "bed3", "x": 0.39, "y": 0.67, "info": "bed3" },
-        { "id": "master", "x": 0.6, "y": 0.67, "info": "master" },
-        { "id": "terrace", "x": 0.57, "y": 0.83, "info": "terrace" }
+        {
+          "id": "bed2",
+          "x": 0.38,
+          "y": 0.36,
+          "info": "bed2"
+        },
+        {
+          "id": "kitchen",
+          "x": 0.58,
+          "y": 0.22,
+          "info": "kitchen",
+          "pano": "panos/kitchen.jpg"
+        },
+        {
+          "id": "dining",
+          "x": 0.605,
+          "y": 0.37,
+          "info": "dining",
+          "pano": "panos/dining.jpg"
+        },
+        {
+          "id": "courtyard",
+          "x": 0.55,
+          "y": 0.46,
+          "info": "courtyard"
+        },
+        {
+          "id": "living",
+          "x": 0.486,
+          "y": 0.68,
+          "info": "living",
+          "pano": "panos/living.jpg"
+        },
+        {
+          "id": "bed3",
+          "x": 0.39,
+          "y": 0.67,
+          "info": "bed3"
+        },
+        {
+          "id": "master",
+          "x": 0.6,
+          "y": 0.67,
+          "info": "master"
+        },
+        {
+          "id": "terrace",
+          "x": 0.57,
+          "y": 0.83,
+          "info": "terrace"
+        }
       ]
     }
   },
