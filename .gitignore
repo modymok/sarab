@@ -5,3 +5,4 @@ dist
 # raw renders live outside the repo; only encoded web clips in public/videos are committed
 raw/
 .playwright-mcp
+.vercel

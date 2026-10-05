@@ -8,6 +8,8 @@ main ──▶ building ──▶ floor (unit A-12, room hotspots) ──▶ 360
   └────▶ mosque
 ```
 
+Live demo: https://sarab-xi.vercel.app (Vercel, deployed with `npx vercel deploy --prod`)
+
 ## Run
 
 ```bash
