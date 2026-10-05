@@ -1,0 +1,11 @@
+# web-name:source path relative to the raw folder (names kept as delivered, typos included)
+main:Ideal/Camera_Ideal_Zone_All.mp4
+building:Ideal/Camera_Ideal_Zone_buildingA.mp4
+mosque:Ideal/Camera_Ideal_Zone_Mosqe.mp4
+floor:Ideal/Camera_Ideal_TopView_Zone_floor.mp4
+main-to-building:ZoomIn/Camera_ZoomIn_Zone_buildingA.mp4
+building-to-main:ZoomOut/Camera_ZoomOut_Zone_buildingA.mp4
+main-to-mosque:ZoomIn/Camera_ZoomIn_Zone_Mosqe.mp4
+mosque-to-main:ZoomOut/Camera_ZoomOut_Zone_Mosqe.mp4
+building-to-floor:ZoomIn/Camera_ZoonIn_TopView_Zone_floor.mp4
+floor-to-building:ZoomOut/Camera_ZoonOut_TopView_Zone_floor.mp4

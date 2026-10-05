@@ -1,0 +1,116 @@
+{
+  "$comment": "View graph (same format as projects/sarab/scenes.json). Hotspot x/y are 0..1 of the 1920x1080 frame; open /fayrouz?edit and click to read coordinates. Renders here end on the next loop's first frame, so a short fade is enough. Every view starts with the info panel folded (\"panel\": \"closed\") because this footage keeps its subjects on the right, where the panel sits. \"transitionRate\": 1.5 plays the 10 s zooms in about 6.7 s.",
+  "fadeMs": 300,
+  "transitionRate": 1.5,
+  "start": "main",
+  "views": {
+    "main": {
+      "idle": "main",
+      "parent": null,
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "bridge",
+          "x": 0.64,
+          "y": 0.357,
+          "go": "bridge"
+        },
+        {
+          "id": "residences",
+          "x": 0.325,
+          "y": 0.211,
+          "go": "residences"
+        },
+        {
+          "id": "marina",
+          "x": 0.215,
+          "y": 0.479,
+          "go": "marina"
+        }
+      ]
+    },
+    "bridge": {
+      "idle": "bridge",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "lantern",
+          "x": 0.732,
+          "y": 0.715,
+          "info": "lantern"
+        },
+        {
+          "id": "skyhomes",
+          "x": 0.52,
+          "y": 0.43,
+          "info": "skyhomes"
+        },
+        {
+          "id": "lagoon",
+          "x": 0.44,
+          "y": 0.77,
+          "info": "lagoon"
+        }
+      ]
+    },
+    "residences": {
+      "idle": "residences",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "terraces",
+          "x": 0.54,
+          "y": 0.52,
+          "info": "terraces"
+        },
+        {
+          "id": "palmgarden",
+          "x": 0.64,
+          "y": 0.82,
+          "info": "palmgarden"
+        },
+        {
+          "id": "bay",
+          "x": 0.72,
+          "y": 0.22,
+          "info": "bay"
+        }
+      ]
+    },
+    "marina": {
+      "idle": "marina",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "berths",
+          "x": 0.53,
+          "y": 0.725,
+          "info": "berths"
+        },
+        {
+          "id": "yachtclub",
+          "x": 0.625,
+          "y": 0.3,
+          "info": "yachtclub"
+        },
+        {
+          "id": "crossing",
+          "x": 0.86,
+          "y": 0.3,
+          "info": "crossing"
+        }
+      ]
+    }
+  },
+  "transitions": {
+    "main>bridge": "main-to-bridge",
+    "bridge>main": "bridge-to-main",
+    "main>residences": "main-to-residences",
+    "residences>main": "residences-to-main",
+    "main>marina": "main-to-marina",
+    "marina>main": "marina-to-main"
+  }
+}

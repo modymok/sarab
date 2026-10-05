@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>فلل الأفق</title>
+  <title>سراب</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2212%22 fill=%22%23e9dcc6%22/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,36 +12,41 @@
   <script type="module" src="/src/main.js"></script>
 </head>
 <body data-moving="1">
-  <!-- 16:9 stage that always covers the viewport; videos and pins share its coordinate space -->
-  <div class="stage" id="stage">
-    <div class="clips" id="clips"></div>
-    <div class="pins" id="pins"></div>
-  </div>
-  <canvas class="pano" id="pano" tabindex="0"></canvas>
-  <div class="veil"></div>
+  <!-- "/" shows #home; "/<project>" shows #player. src/main.js removes the one not in use. -->
+  <main class="home" id="home" hidden></main>
 
-  <header class="top">
-    <div class="glass brand" id="brand"></div>
-    <nav class="glass crumbs" id="crumbs" aria-label="breadcrumb"></nav>
-    <button class="glass lang" id="lang" type="button"></button>
-  </header>
+  <div id="player">
+    <!-- 16:9 stage that always covers the viewport; videos and pins share its coordinate space -->
+    <div class="stage" id="stage">
+      <div class="clips" id="clips"></div>
+      <div class="pins" id="pins"></div>
+    </div>
+    <canvas class="pano" id="pano" tabindex="0"></canvas>
+    <div class="veil"></div>
 
-  <section class="hero" aria-live="polite">
-    <button class="glass back" id="back" type="button" hidden></button>
-    <h1 class="title" id="title"></h1>
-    <p class="subtitle" id="subtitle"></p>
-  </section>
+    <header class="top">
+      <a class="glass brand" id="brand" href="/"></a>
+      <nav class="glass crumbs" id="crumbs" aria-label="breadcrumb"></nav>
+      <button class="glass lang" id="lang" type="button"></button>
+    </header>
 
-  <aside class="glass panel" id="panel"></aside>
+    <section class="hero" aria-live="polite">
+      <button class="glass back" id="back" type="button" hidden></button>
+      <h1 class="title" id="title"></h1>
+      <p class="subtitle" id="subtitle"></p>
+    </section>
 
-  <div class="roomui">
-    <p class="hint" id="hint"></p>
-    <nav class="glass roombar" id="roombar"></nav>
-  </div>
+    <aside class="glass panel" id="panel"></aside>
 
-  <div class="loader" id="loader">
-    <p id="loaderText"></p>
-    <div class="bar"><i id="loaderBar"></i></div>
+    <div class="roomui">
+      <p class="hint" id="hint"></p>
+      <nav class="glass roombar" id="roombar"></nav>
+    </div>
+
+    <div class="loader" id="loader">
+      <p id="loaderText"></p>
+      <div class="bar"><i id="loaderBar"></i></div>
+    </div>
   </div>
   <div class="glass toast" id="toast" role="status" hidden></div>
 </body>

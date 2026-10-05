@@ -1,0 +1,527 @@
+{
+  "$comment": "Fayrouz Bay demo content. All figures are fabricated. Every user-facing string is {ar, en}.",
+  "ui": {
+    "brand": {
+      "ar": "خليج فيروز",
+      "en": "Fayrouz Bay"
+    },
+    "langSwitch": {
+      "ar": "English",
+      "en": "العربية"
+    },
+    "back": {
+      "ar": "رجوع",
+      "en": "Back"
+    },
+    "explore": {
+      "ar": "استكشف",
+      "en": "Explore"
+    },
+    "loading": {
+      "ar": "جارٍ تجهيز المشهد",
+      "en": "Preparing the view"
+    },
+    "bookVisit": {
+      "ar": "احجز موعد زيارة",
+      "en": "Book a site visit"
+    },
+    "demoOnly": {
+      "ar": "هذا عرض تجريبي، الحجز غير مفعّل",
+      "en": "This is a demo. Booking is turned off."
+    },
+    "status": {
+      "available": {
+        "ar": "متاحة",
+        "en": "Available"
+      },
+      "reserved": {
+        "ar": "محجوزة",
+        "en": "Reserved"
+      },
+      "sold": {
+        "ar": "مباعة",
+        "en": "Sold"
+      }
+    },
+    "sar": {
+      "ar": "ر.س",
+      "en": "SAR"
+    },
+    "sqm": {
+      "ar": "م²",
+      "en": "m²"
+    },
+    "editHint": {
+      "ar": "وضع التحرير: انقر لقراءة الإحداثيات",
+      "en": "Edit mode: click to read coordinates"
+    },
+    "lookAround": {
+      "ar": "اسحب للنظر حولك",
+      "en": "Drag to look around"
+    },
+    "backToPlan": {
+      "ar": "العودة إلى المشهد",
+      "en": "Back to the view"
+    },
+    "rooms360": {
+      "ar": "أماكن بجولة 360°",
+      "en": "Places in 360°"
+    },
+    "allProjects": {
+      "ar": "كل المشاريع",
+      "en": "All projects"
+    },
+    "details": {
+      "ar": "التفاصيل",
+      "en": "Details"
+    },
+    "dragToExplore": {
+      "ar": "اسحب المشهد يمينًا ويسارًا لرؤية المزيد",
+      "en": "Drag the scene sideways to see more"
+    },
+    "m": {
+      "ar": "م",
+      "en": "m"
+    }
+  },
+  "views": {
+    "main": {
+      "title": {
+        "ar": "خليج فيروز",
+        "en": "Fayrouz Bay"
+      },
+      "subtitle": {
+        "ar": "ساحل البحر الأحمر",
+        "en": "Red Sea coast"
+      },
+      "lead": {
+        "ar": "مجتمع ساحلي من 420 وحدة سكنية حول بحيرة فيروزية ومرسى لليخوت، يمتد فيه فوق الماء جسر سكني ينتهي بجناح الفانوس.",
+        "en": "A coastal community of 420 residences around a turquoise lagoon and a yacht marina, where an inhabited bridge runs over the water and ends at the Lantern pavilion."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "وحدة سكنية",
+            "en": "Residences"
+          },
+          "value": "420"
+        },
+        {
+          "label": {
+            "ar": "متاحة الآن",
+            "en": "Available now"
+          },
+          "value": "63"
+        },
+        {
+          "label": {
+            "ar": "مساحة المشروع",
+            "en": "Site area"
+          },
+          "value": "312,000",
+          "unit": "sqm"
+        },
+        {
+          "label": {
+            "ar": "التسليم",
+            "en": "Handover"
+          },
+          "value": {
+            "ar": "الربع الثاني 2028",
+            "en": "Q2 2028"
+          }
+        }
+      ],
+      "features": [
+        {
+          "ar": "شاطئ خاص بطول 1.4 كم",
+          "en": "1.4 km private beach"
+        },
+        {
+          "ar": "بحيرة هادئة للسباحة والتجديف",
+          "en": "Calm lagoon for swimming and paddling"
+        },
+        {
+          "ar": "مرسى لليخوت عند مدخل البحيرة",
+          "en": "Yacht marina at the lagoon entrance"
+        },
+        {
+          "ar": "ممشى خشبي بطول 600 م",
+          "en": "600 m boardwalk"
+        }
+      ],
+      "pins": {
+        "bridge": {
+          "title": {
+            "ar": "الجسر",
+            "en": "The bridge"
+          },
+          "note": {
+            "ar": "48 مسكنًا فوق الماء",
+            "en": "48 residences over the water"
+          }
+        },
+        "residences": {
+          "title": {
+            "ar": "مدرجات النخيل",
+            "en": "Palm Terraces"
+          },
+          "note": {
+            "ar": "من 2 إلى 4 غرف نوم",
+            "en": "2 to 4 bedrooms"
+          }
+        },
+        "marina": {
+          "title": {
+            "ar": "مرسى فيروز",
+            "en": "Fayrouz Marina"
+          },
+          "note": {
+            "ar": "86 مربطًا لليخوت",
+            "en": "86 yacht berths"
+          }
+        }
+      }
+    },
+    "bridge": {
+      "title": {
+        "ar": "الجسر",
+        "en": "The bridge"
+      },
+      "subtitle": {
+        "ar": "عبر القناة وصولًا إلى الفانوس",
+        "en": "Across the channel to the Lantern"
+      },
+      "lead": {
+        "ar": "جسر بطول 180 مترًا يحمل 48 مسكنًا فوق القناة، وينتهي عند الفانوس، وهو جناح دائري من ثلاثة مستويات يضم مطعمًا وصالة علوية.",
+        "en": "A 180 m bridge that carries 48 residences over the channel and ends at the Lantern, a round three-level pavilion with a restaurant and a sky lounge."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "طول الجسر",
+            "en": "Span"
+          },
+          "value": "180",
+          "unit": "m"
+        },
+        {
+          "label": {
+            "ar": "مسكن على الجسر",
+            "en": "Residences on the bridge"
+          },
+          "value": "48"
+        },
+        {
+          "label": {
+            "ar": "متاحة",
+            "en": "Available"
+          },
+          "value": "9"
+        },
+        {
+          "label": {
+            "ar": "مستويات الفانوس",
+            "en": "Lantern levels"
+          },
+          "value": "3"
+        }
+      ],
+      "features": [
+        {
+          "ar": "مطعم وصالة علوية في الفانوس",
+          "en": "Restaurant and sky lounge in the Lantern"
+        },
+        {
+          "ar": "شرفات مزروعة فوق الماء",
+          "en": "Planted terraces over the water"
+        },
+        {
+          "ar": "ممر مشاة مظلل على طول الجسر",
+          "en": "Shaded walkway along the bridge"
+        },
+        {
+          "ar": "رصيف عائم عند قاعدة الفانوس",
+          "en": "Floating landing at the base of the Lantern"
+        }
+      ],
+      "rooms": {
+        "lantern": {
+          "title": {
+            "ar": "الفانوس",
+            "en": "The Lantern"
+          },
+          "note": {
+            "ar": "جناح دائري من ثلاثة مستويات، مطعمه في المستوى الأرضي وصالته العلوية على سطحه المطل على البحيرة.",
+            "en": "A round three-level pavilion, with a restaurant at ground level and a sky lounge on the roof overlooking the lagoon."
+          },
+          "area": 1450
+        },
+        "skyhomes": {
+          "title": {
+            "ar": "مساكن الجسر",
+            "en": "Bridge residences"
+          },
+          "note": {
+            "ar": "يطل كل مسكن على الماء من جهتي الجسر، وله شرفة مزروعة خاصة.",
+            "en": "Each residence looks onto the water on both sides of the bridge and has its own planted terrace."
+          },
+          "area": 165
+        },
+        "lagoon": {
+          "title": {
+            "ar": "البحيرة",
+            "en": "The lagoon"
+          },
+          "note": {
+            "ar": "مياه هادئة بعمق 1.5 متر تقريبًا، مناسبة للسباحة والتجديف وقوفًا.",
+            "en": "Calm water about 1.5 m deep, suited to swimming and paddleboarding."
+          }
+        }
+      }
+    },
+    "residences": {
+      "title": {
+        "ar": "مدرجات النخيل",
+        "en": "Palm Terraces"
+      },
+      "subtitle": {
+        "ar": "تطل على الخليج",
+        "en": "Overlooking the bay"
+      },
+      "lead": {
+        "ar": "منازل على ثلاثة أدوار متدرجة، لكل منها شرفة خاصة مزروعة، وتحيط بها حدائق نخيل تمتد حتى الشاطئ.",
+        "en": "Homes across three stepped floors, each with a private planted terrace, set in palm gardens that run down to the beach."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "غرف النوم",
+            "en": "Bedrooms"
+          },
+          "value": {
+            "ar": "2 إلى 4",
+            "en": "2 to 4"
+          }
+        },
+        {
+          "label": {
+            "ar": "الأدوار",
+            "en": "Floors"
+          },
+          "value": "3"
+        },
+        {
+          "label": {
+            "ar": "متاحة",
+            "en": "Available"
+          },
+          "value": "27"
+        },
+        {
+          "label": {
+            "ar": "يبدأ من",
+            "en": "From"
+          },
+          "value": "2,150,000",
+          "unit": "sar"
+        }
+      ],
+      "units": [
+        {
+          "id": "T-312",
+          "floor": {
+            "ar": "الدور العلوي",
+            "en": "Top floor"
+          },
+          "area": 262,
+          "beds": 4,
+          "price": 3980000,
+          "status": "reserved"
+        },
+        {
+          "id": "T-214",
+          "floor": {
+            "ar": "الدور الأوسط",
+            "en": "Middle floor"
+          },
+          "area": 204,
+          "beds": 3,
+          "price": 2960000,
+          "status": "available"
+        },
+        {
+          "id": "T-209",
+          "floor": {
+            "ar": "الدور الأوسط",
+            "en": "Middle floor"
+          },
+          "area": 196,
+          "beds": 3,
+          "price": 2840000,
+          "status": "sold"
+        },
+        {
+          "id": "T-105",
+          "floor": {
+            "ar": "الدور الأرضي",
+            "en": "Ground floor"
+          },
+          "area": 148,
+          "beds": 2,
+          "price": 2150000,
+          "status": "available"
+        }
+      ],
+      "features": [
+        {
+          "ar": "شرفة مزروعة لكل منزل",
+          "en": "A planted terrace for every home"
+        },
+        {
+          "ar": "مظلات خشبية فوق الشرفات",
+          "en": "Timber pergolas over the terraces"
+        },
+        {
+          "ar": "حدائق نخيل تمتد حتى الشاطئ",
+          "en": "Palm gardens that run down to the beach"
+        },
+        {
+          "ar": "مسبح مشترك لكل مجموعة سكنية",
+          "en": "A shared pool for each cluster"
+        }
+      ],
+      "rooms": {
+        "terraces": {
+          "title": {
+            "ar": "الشرفات المزروعة",
+            "en": "Planted terraces"
+          },
+          "note": {
+            "ar": "يتراجع كل دور عمّا تحته، فتقوم شرفاته على سطح الدور الأدنى، وفيها أحواض نباتات مدمجة تُروى بالتنقيط.",
+            "en": "Each floor steps back from the one below, so its terraces sit on the lower roof, with built-in planters on drip irrigation."
+          },
+          "area": 46
+        },
+        "palmgarden": {
+          "title": {
+            "ar": "حديقة النخيل",
+            "en": "Palm garden"
+          },
+          "note": {
+            "ar": "ممرات رملية تمتد بين أكثر من 900 نخلة حتى الشاطئ.",
+            "en": "Sandy paths run through more than 900 palms down to the beach."
+          }
+        },
+        "bay": {
+          "title": {
+            "ar": "الخليج",
+            "en": "The bay"
+          },
+          "note": {
+            "ar": "شاطئ رملي على بعد 3 دقائق سيرًا من مدرجات النخيل، بمياه صافية وقاع ينحدر بلطف.",
+            "en": "A sandy beach a 3-minute walk from Palm Terraces, with clear water and a gently sloping seabed."
+          }
+        }
+      }
+    },
+    "marina": {
+      "title": {
+        "ar": "مرسى فيروز",
+        "en": "Fayrouz Marina"
+      },
+      "subtitle": {
+        "ar": "عند مدخل البحيرة",
+        "en": "At the lagoon entrance"
+      },
+      "lead": {
+        "ar": "مرسى يتسع لـ 86 يختًا بطول يصل إلى 40 مترًا، ويضم ناديًا لليخوت وممشى خشبيًا بطول 600 متر يصل المرابط بالشاطئ والجسر.",
+        "en": "A marina with room for 86 yachts up to 40 m long, a yacht club and a 600 m boardwalk that links the berths to the beach and the bridge."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "المرابط",
+            "en": "Berths"
+          },
+          "value": "86"
+        },
+        {
+          "label": {
+            "ar": "أقصى طول لليخت",
+            "en": "Maximum yacht length"
+          },
+          "value": "40",
+          "unit": "m"
+        },
+        {
+          "label": {
+            "ar": "الممشى الخشبي",
+            "en": "Boardwalk"
+          },
+          "value": "600",
+          "unit": "m"
+        },
+        {
+          "label": {
+            "ar": "عمق المياه",
+            "en": "Water depth"
+          },
+          "value": "4.5",
+          "unit": "m"
+        }
+      ],
+      "features": [
+        {
+          "ar": "رصيف للوقود والصيانة",
+          "en": "Fuel and service dock"
+        },
+        {
+          "ar": "كهرباء ومياه عند كل مربط",
+          "en": "Power and water at every berth"
+        },
+        {
+          "ar": "مكتب للمرسى يعمل على مدار الساعة",
+          "en": "Marina office open 24 hours"
+        },
+        {
+          "ar": "مرابط يومية للقوارب الزائرة",
+          "en": "Day berths for visiting boats"
+        }
+      ],
+      "rooms": {
+        "berths": {
+          "title": {
+            "ar": "المرابط",
+            "en": "The berths"
+          },
+          "note": {
+            "ar": "أرصفة خشبية عائمة بمرابط من 12 إلى 40 مترًا، كلٌّ منها مزوّد بالكهرباء والمياه.",
+            "en": "Floating timber pontoons with berths from 12 to 40 m, each with power and water."
+          }
+        },
+        "yachtclub": {
+          "title": {
+            "ar": "نادي اليخوت",
+            "en": "Yacht club"
+          },
+          "note": {
+            "ar": "مطعم مطل على الماء، وصالة للأعضاء، وغرف لتبديل الملابس.",
+            "en": "A waterside restaurant, a members' lounge and changing rooms."
+          },
+          "area": 2400
+        },
+        "crossing": {
+          "title": {
+            "ar": "معبر القناة",
+            "en": "Channel crossing"
+          },
+          "note": {
+            "ar": "يرتفع الجسر 9 أمتار فوق القناة، ما يتيح للقوارب الصغيرة العبور من المرسى إلى البحيرة.",
+            "en": "The bridge clears the channel by 9 m, so small boats can pass from the marina into the lagoon."
+          }
+        }
+      }
+    }
+  }
+}

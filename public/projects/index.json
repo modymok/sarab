@@ -1,0 +1,57 @@
+{
+  "$comment": "Project list for the home page. Each id is a folder in public/projects/ and the URL path /<id>. The home preview uses each project's videos/main.jpg and main.mp4, so name the start view's idle clip 'main'.",
+  "ui": {
+    "brand": {
+      "ar": "سراب",
+      "en": "Sarab"
+    },
+    "title": {
+      "ar": "اختر مشروعًا",
+      "en": "Choose a project"
+    },
+    "tagline": {
+      "ar": "جولات تفاعلية في مشاريعنا، مشهدًا بعد مشهد",
+      "en": "Interactive tours of our projects, one view at a time"
+    },
+    "enter": {
+      "ar": "استكشف المشروع",
+      "en": "Explore the project"
+    },
+    "langSwitch": {
+      "ar": "English",
+      "en": "العربية"
+    }
+  },
+  "projects": [
+    {
+      "id": "sarab",
+      "name": {
+        "ar": "فلل الأفق",
+        "en": "Al Ufuq Villas"
+      },
+      "place": {
+        "ar": "حي الياسمين، شمال الرياض",
+        "en": "Al Yasmin, north Riyadh"
+      },
+      "line": {
+        "ar": "مجتمع من 312 فيلا بطابع نجدي معاصر، يتوسطه ممشى مظلل بالنخيل وجامع.",
+        "en": "A community of 312 villas in a modern Najdi style, built around a palm-shaded promenade and a central mosque."
+      }
+    },
+    {
+      "id": "fayrouz",
+      "name": {
+        "ar": "خليج فيروز",
+        "en": "Fayrouz Bay"
+      },
+      "place": {
+        "ar": "ساحل البحر الأحمر",
+        "en": "Red Sea coast"
+      },
+      "line": {
+        "ar": "مجتمع ساحلي من 420 وحدة سكنية حول بحيرة فيروزية ومرسى لليخوت، يمتد فيه فوق الماء جسر سكني ينتهي بجناح الفانوس.",
+        "en": "A coastal community of 420 residences around a turquoise lagoon and a yacht marina, where an inhabited bridge runs over the water and ends at the Lantern pavilion."
+      }
+    }
+  ]
+}

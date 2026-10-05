@@ -1,0 +1,352 @@
+// Sarab — pre-rendered video explorer for one project (/<project-id>).
+// One <video> per clip, stacked; moving between views = crossfade into a transition clip,
+// then crossfade into the target's idle loop just before the transition ends.
+
+const $ = (id) => document.getElementById(id);
+const load = (url) => fetch(url).then((r) => r.json());
+const ROOT = `/projects/${location.pathname.split('/').filter(Boolean)[0]}/`;
+const [scenes, content] = await Promise.all([load(`${ROOT}scenes.json`), load(`${ROOT}content.json`)]).catch(() => {
+  location.replace('/'); // unknown project id → the project list
+  return new Promise(() => {});
+});
+
+const FADE = scenes.fadeMs;
+document.documentElement.style.setProperty('--fade', `${FADE}ms`);
+const EDIT = new URLSearchParams(location.search).has('edit');
+
+let lang = 'ar';
+try { lang = localStorage.getItem('sarab.lang') || 'ar'; } catch {}
+let current = scenes.start;
+let activeInfo = null;
+let room = null; // hotspot whose 360° view is open
+let panelOpen = true; // per view: scenes.json `"panel": "closed"` starts it folded
+let busy = false;
+
+const t = (v) => (v && typeof v === 'object' && 'ar' in v ? v[lang] : v);
+const ui = (k) => t(content.ui[k]);
+const num = (n) => new Intl.NumberFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-US').format(n);
+const comma = () => (lang === 'ar' ? '، ' : ', ');
+const unit = (u) => (u ? ` <bdi>${ui(u)}</bdi>` : '');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+// ---------- clips ----------
+const stage = $('stage');
+const idles = new Set(Object.values(scenes.views).map((v) => v.idle));
+const clips = {};
+for (const name of new Set([...idles, ...Object.values(scenes.transitions)])) {
+  const v = document.createElement('video');
+  // Only the opening loop buffers up front; warm() fetches the rest one hop ahead.
+  const preload = name === scenes.views[scenes.start].idle ? 'auto' : 'none';
+  Object.assign(v, { muted: true, playsInline: true, preload, src: `${ROOT}videos/${name}.mp4` });
+  if (idles.has(name)) v.poster = `${ROOT}videos/${name}.jpg`;
+  v.className = 'clip';
+  $('clips').append(v);
+  clips[name] = v;
+}
+
+// Loader: wait only for the opening loop; the other clips keep buffering in the background
+// and play() waits for data if one is clicked early. Capped, because iOS Safari may not
+// buffer a video at all before it is played.
+await new Promise((done) => {
+  const first = clips[scenes.views[scenes.start].idle];
+  $('loaderBar').style.width = '35%';
+  if (first.readyState >= 3) return done();
+  first.addEventListener('canplay', done, { once: true });
+  setTimeout(done, 8000);
+});
+$('loaderBar').style.width = '100%';
+
+// Buffer what the next click can need: transitions out of `view` first, then the loops they land on.
+function warm(view) {
+  const next = scenes.views[view].hotspots.map((h) => h.go).filter(Boolean);
+  const parent = scenes.views[view].parent;
+  if (parent) next.push(parent);
+  const want = [...next.map((to) => scenes.transitions[`${view}>${to}`]), ...next.map((to) => scenes.views[to].idle)];
+  for (const name of want) {
+    const v = clips[name];
+    if (v && v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+  }
+}
+
+let z = 1;
+let shown = null;
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+// Capped: frame callbacks never fire in a hidden tab, and the app must not hang there.
+const nextFrame = (v) => Promise.race([wait(250), new Promise((r) => ('requestVideoFrameCallback' in v ? v.requestVideoFrameCallback(() => r()) : r()))]);
+
+async function crossTo(v, loop) {
+  v.loop = loop;
+  v.currentTime = 0;
+  if (v.readyState < 3) document.body.dataset.waiting = '1'; // clicked before the clip arrived
+  await v.play().catch(() => {});
+  delete document.body.dataset.waiting;
+  await nextFrame(v); // first decoded frame is on screen before we fade, so no black flash
+  v.style.zIndex = ++z;
+  v.classList.add('on');
+  const prev = shown;
+  shown = v;
+  await wait(FADE);
+  if (prev && prev !== v) { prev.classList.remove('on'); prev.pause(); }
+}
+
+// Resolve when the clip is FADE ms from its end, so the idle fade overlaps the last frames.
+const nearEnd = (v) => new Promise((r) => {
+  const check = () => {
+    if (v.ended || v.duration - v.currentTime <= FADE / 1000) { v.removeEventListener('timeupdate', check); r(); }
+    else if ('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(check);
+  };
+  v.addEventListener('timeupdate', check);
+  v.addEventListener('ended', check, { once: true });
+  check();
+});
+
+async function step(to) {
+  const via = clips[scenes.transitions[`${current}>${to}`]];
+  if (via) {
+    via.playbackRate = scenes.transitionRate || 1; // long renders can play faster without re-exporting
+    await crossTo(via, false);
+    await nearEnd(via);
+  }
+  await crossTo(clips[scenes.views[to].idle], true);
+  current = to;
+}
+
+const chain = (id) => { const out = []; for (let v = id; v; v = scenes.views[v].parent) out.unshift(v); return out; };
+
+// Walk up to the common ancestor, then down — each hop plays its own transition.
+async function navigate(target) {
+  if (busy || target === current) return;
+  busy = true;
+  activeInfo = null;
+  document.body.dataset.moving = '1';
+  const down = chain(target);
+  while (!down.includes(current)) await step(scenes.views[current].parent);
+  for (const v of down.slice(down.indexOf(current) + 1)) await step(v);
+  warm(current);
+  panelOpen = scenes.views[current].panel !== 'closed';
+  render();
+  framePins();
+  document.body.dataset.moving = '';
+  busy = false;
+}
+
+// ---------- 360° rooms ----------
+let pano;
+const panoRooms = () => scenes.views[current].hotspots.filter((h) => h.pano);
+
+// Dive: the floor-plan video scales up around the clicked pin while the panorama fades in over it.
+async function openRoom(id) {
+  const h = scenes.views[current].hotspots.find((x) => x.id === id && x.pano);
+  if (busy || !h) return;
+  busy = true;
+  const first = !room;
+  document.body.dataset.moving = '1';
+  if (first) {
+    stage.style.setProperty('--ox', `${h.x * 100}%`);
+    stage.style.setProperty('--oy', `${h.y * 100}%`);
+  } else {
+    $('pano').classList.add('swap');
+    await wait(250);
+  }
+  pano ??= (await import('./pano.js')).createPano($('pano'));
+  await pano.load(ROOT + h.pano);
+  room = id;
+  activeInfo = h.info;
+  pano.start();
+  document.body.dataset.room = '1';
+  $('pano').classList.remove('swap');
+  render();
+  await wait(first ? 900 : 250);
+  shown?.pause();
+  document.body.dataset.moving = '';
+  $('pano').focus({ preventScroll: true });
+  busy = false;
+}
+
+async function closeRoom() {
+  if (busy || !room) return;
+  busy = true;
+  document.body.dataset.moving = '1';
+  shown?.play().catch(() => {});
+  delete document.body.dataset.room;
+  room = null;
+  await wait(900);
+  pano.stop();
+  render();
+  document.body.dataset.moving = '';
+  busy = false;
+}
+
+// ---------- UI ----------
+function renderPins() {
+  const view = scenes.views[current];
+  const copy = content.views[current];
+  $('pins').innerHTML = view.hotspots.map((h) => {
+    const p = h.info ? copy.rooms[h.info] : copy.pins[h.id];
+    const note = h.info ? (p.area ? `${num(p.area)}${unit('sqm')}` : '') : esc(t(p.note));
+    return `<button class="pin ${h.info ? 'pin-info' : 'pin-go'} ${h.pano ? 'pin-360' : ''} ${activeInfo === h.info && h.info ? 'is-active' : ''}"
+      style="--x:${h.x};--y:${h.y}" data-go="${h.go || ''}" data-info="${h.info || ''}" data-open="${h.pano ? h.id : ''}" type="button">
+      <span class="dot">${h.pano ? '<i dir="ltr">360°</i>' : ''}</span>
+      <span class="glass tag"><b>${esc(t(p.title))}</b>${note ? `<small>${note}</small>` : ''}${h.info && activeInfo === h.info && p.note ? `<span class="tag-note">${esc(t(p.note))}</span>` : ''}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderPanel() {
+  const c = content.views[current];
+  const stats = c.stats.map((s) => `<div><dt>${esc(t(s.label))}</dt><dd>${esc(t(s.value))}${unit(s.unit)}</dd></div>`).join('');
+  const features = c.features ? `<ul class="features">${c.features.map((f) => `<li>${esc(t(f))}</li>`).join('')}</ul>` : '';
+  const units = c.units ? `<ul class="units">${c.units.map((u) => `
+      <li class="unit ${u.go ? 'is-link' : ''}" ${u.go ? `data-go="${u.go}" tabindex="0" role="button"` : ''}>
+        <span class="u-id">${esc(u.id)}</span>
+        <span class="u-meta">${esc(t(u.floor))}${comma()}${num(u.area)}${unit('sqm')}</span>
+        <span class="u-price">${num(u.price)}${unit('sar')}</span>
+        <span class="chip s-${u.status}">${esc(t(content.ui.status[u.status]))}</span>
+      </li>`).join('')}</ul>` : '';
+  const room = activeInfo && c.rooms?.[activeInfo];
+  const roomCard = room ? `<div class="room"><h3>${esc(t(room.title))}</h3><p>${room.area ? `<b>${num(room.area)}${unit('sqm')}</b> ` : ''}${esc(t(room.note))}</p></div>` : '';
+  const priceRow = c.price ? `<p class="price"><span class="chip s-${c.status}">${esc(t(content.ui.status[c.status]))}</span><strong>${num(c.price)}${unit('sar')}</strong></p>` : '';
+  const cta = c.price ? `<button class="cta" type="button" data-demo>${esc(ui('bookVisit'))}</button>` : '';
+
+  const toggle = `<button class="panel-toggle" type="button" data-toggle aria-expanded="${panelOpen}" aria-controls="panelBody">${esc(ui('details'))}</button>`;
+  $('panel').classList.toggle('is-closed', !panelOpen);
+  $('panel').innerHTML = `${toggle}<div class="panel-body" id="panelBody">${priceRow}<p class="lead">${esc(t(c.lead))}</p><dl class="stats">${stats}</dl>${roomCard}${units}${features}${cta}</div>`;
+}
+
+function render() {
+  const c = content.views[current];
+  const html = document.documentElement;
+  html.lang = lang;
+  html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.title = ui('brand');
+  $('brand').textContent = ui('brand');
+  $('lang').textContent = ui('langSwitch');
+  const r = room && c.rooms[activeInfo];
+  $('brand').title = ui('allProjects');
+  $('title').textContent = t(r ? r.title : c.title);
+  $('subtitle').innerHTML = r ? `${r.area ? `${num(r.area)}${unit('sqm')}${comma()}` : ''}${esc(t(r.note))}` : esc(t(c.subtitle));
+  $('loaderText').textContent = ui('loading');
+  const parent = scenes.views[current].parent;
+  const back = $('back');
+  back.hidden = !parent;
+  back.textContent = ui(room ? 'backToPlan' : 'back');
+  $('crumbs').hidden = !parent;
+  const crumbs = chain(current).map((id) => [id, t(content.views[id].title)]);
+  if (r) crumbs.push([null, t(r.title)]);
+  $('crumbs').innerHTML = crumbs
+    .map(([id, label], i) => (i === crumbs.length - 1 ? `<span aria-current="page">${esc(label)}</span>` : `<button type="button" data-go="${id}">${esc(label)}</button>`))
+    .join('<i aria-hidden="true">/</i>');
+  $('hint').textContent = ui('lookAround');
+  $('roombar').setAttribute('aria-label', ui('rooms360'));
+  $('roombar').innerHTML = panoRooms()
+    .map((h) => `<button type="button" data-open="${h.id}" ${h.id === room ? 'aria-current="true"' : ''}>${esc(t(c.rooms[h.info].title))}</button>`)
+    .join('');
+  renderPins();
+  renderPanel();
+}
+
+function toast(msg, ms = 2600) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => (el.hidden = true), ms);
+}
+
+// ---------- events ----------
+document.addEventListener('click', async (e) => {
+  const go = e.target.closest('[data-go]')?.dataset.go;
+  const info = e.target.closest('[data-info]')?.dataset.info;
+  const pick = e.target.closest('[data-open]')?.dataset.open;
+  if (pick) return pick === room ? undefined : openRoom(pick);
+  if (go) { if (room) await closeRoom(); return navigate(go); }
+  if (info) { activeInfo = activeInfo === info ? null : info; renderPins(); renderPanel(); clampTag(); return; }
+  if (e.target.closest('[data-toggle]')) { panelOpen = !panelOpen; renderPanel(); $('panel').querySelector('[data-toggle]').focus(); return; }
+  if (e.target.closest('[data-demo]')) return toast(ui('demoOnly'));
+});
+const up = () => (room ? closeRoom() : navigate(scenes.views[current].parent));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && scenes.views[current].parent) up();
+  if (e.key === 'Enter' && e.target.dataset?.go) navigate(e.target.dataset.go);
+});
+$('back').addEventListener('click', up);
+$('lang').addEventListener('click', () => {
+  lang = lang === 'ar' ? 'en' : 'ar';
+  try { localStorage.setItem('sarab.lang', lang); } catch {}
+  render();
+});
+
+// Tall screens crop the 16:9 frame at the sides, hiding side hotspots: drag the scene sideways.
+let pan = 0;
+let drag = null;
+const panRange = () => Math.max(0, (stage.offsetWidth - innerWidth) / 2);
+const setPan = (x) => { pan = Math.max(-panRange(), Math.min(panRange(), x)); stage.style.setProperty('--pan', `${pan}px`); clampTag(); };
+stage.addEventListener('pointerdown', (e) => {
+  if (!panRange() || room || e.button !== 0) return;
+  drag = { x: e.clientX, start: pan, moved: false };
+});
+addEventListener('pointermove', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (!drag.moved && Math.abs(dx) < 8) return;
+  if (!drag.moved) $('toast').hidden = true; // the hint has done its job
+  drag.moved = true;
+  document.body.classList.add('panning');
+  setPan(drag.start + dx);
+});
+let swallowUntil = 0; // the click that ends a drag must not count as a tap on a pin
+addEventListener('click', (e) => { if (performance.now() < swallowUntil) e.stopPropagation(); }, true);
+addEventListener('pointerup', () => {
+  if (drag?.moved) swallowUntil = performance.now() + 150;
+  drag = null;
+  document.body.classList.remove('panning');
+});
+addEventListener('pointercancel', () => { drag = null; document.body.classList.remove('panning'); });
+addEventListener('resize', () => setPan(pan));
+// keyboard users can't drag: bring a focused off-screen pin into view
+stage.addEventListener('focusin', (e) => {
+  const r = e.target.closest('.pin')?.getBoundingClientRect();
+  if (r && (r.left < 0 || r.right > innerWidth)) setPan(pan + innerWidth / 2 - (r.left + r.width / 2));
+});
+// On arrival, pan so the largest group of this view's pins fits on screen.
+function framePins() {
+  const xs = scenes.views[current].hotspots.map((h) => h.x);
+  if (!panRange() || !xs.length) return setPan(0);
+  const half = (innerWidth / stage.offsetWidth / 2) * 0.85;
+  const groups = xs.map((c) => xs.filter((x) => Math.abs(x - c) <= half));
+  const best = groups.sort((a, b) => b.length - a.length)[0];
+  setPan((0.5 - (Math.min(...best) + Math.max(...best)) / 2) * stage.offsetWidth);
+}
+// keep an opened pin's note on screen
+function clampTag() {
+  const tag = document.querySelector('.pin.is-active .tag');
+  if (!tag) return;
+  tag.style.setProperty('--shift', '0px');
+  const r = tag.getBoundingClientRect();
+  const shift = r.left < 8 ? 8 - r.left : r.right > innerWidth - 8 ? innerWidth - 8 - r.right : 0;
+  tag.style.setProperty('--shift', `${shift}px`);
+}
+
+// ?edit — click the video to read hotspot coordinates for scenes.json
+if (EDIT) {
+  toast(ui('editHint'));
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('.pin')) return;
+    const r = stage.getBoundingClientRect();
+    const xy = `"x": ${((e.clientX - r.left) / r.width).toFixed(3)}, "y": ${((e.clientY - r.top) / r.height).toFixed(3)}`;
+    navigator.clipboard?.writeText(xy).catch(() => {});
+    console.log(`[${current}]`, xy);
+    toast(`${current}: ${xy}`);
+  });
+  document.body.classList.add('edit');
+}
+
+// ---------- start ----------
+panelOpen = scenes.views[current].panel !== 'closed';
+render();
+await crossTo(clips[scenes.views[current].idle], true);
+warm(current);
+$('loader').classList.add('done');
+document.body.dataset.moving = '';
+framePins();
+if (panRange() > 40) toast(ui('dragToExplore'), 7000);

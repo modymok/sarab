@@ -66,6 +66,18 @@
     "rooms360": {
       "ar": "غرف بجولة 360°",
       "en": "Rooms in 360°"
+    },
+    "allProjects": {
+      "ar": "كل المشاريع",
+      "en": "All projects"
+    },
+    "details": {
+      "ar": "التفاصيل",
+      "en": "Details"
+    },
+    "dragToExplore": {
+      "ar": "اسحب المشهد يمينًا ويسارًا لرؤية المزيد",
+      "en": "Drag the scene sideways to see more"
     }
   },
   "views": {

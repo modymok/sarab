@@ -25,18 +25,18 @@ The trick:
 
 | Concern | Choice | Why |
 |---|---|---|
-| App | One static page, vanilla JS modules, Vite dev server | Smallest thing that proves the UX. No framework needed for 4 views. |
+| App | One static page, vanilla JS modules, Vite dev server; `/` = project list, `/<id>` = explorer | Smallest thing that proves the UX. No framework needed. |
 | Video | One `<video>` per clip, stacked; crossfade transition → idle | Instant switches; crossfade hides render seams (see §4). |
 | Hotspots | HTML buttons in a 16:9 "cover" stage, x/y = 0..1 of the frame | Idle loops barely move, so 2D pins hold. No 3D export needed. |
-| Config | `public/config/scenes.json` (graph + hotspots), `content.json` (bilingual copy + fabricated data) | Swap footage/project without touching code. |
+| Config | `public/projects/<id>/scenes.json` (graph + hotspots), `content.json` (bilingual copy + fabricated data), `public/projects/index.json` (project list) | Swap footage or add a project without touching code. |
 | i18n | Arabic default (RTL), English toggle, Latin digits in both | Saudi market norm for prices/areas. |
-| Encoding | `scripts/encode.sh` → H.264 8-bit 1080p, GOP 12, faststart, posters | Raw set mixes HEVC 10-bit (no Firefox/most Windows). |
+| Encoding | `scripts/encode.sh <id> <raw>`: web-ready H.264 1080p is copied (faststart); anything else is transcoded to H.264 8-bit 1080p, CRF 21 capped at 6 Mbps, GOP 48; posters for idles | Sarab's raw set mixed HEVC 10-bit (no Firefox/most Windows); Fayrouz was already web-ready. |
 | 360° rooms | three.js (lazy-loaded chunk), equirectangular image inside a sphere; drag / wheel / pinch / arrow keys | Floor-plan pins with `pano` dive in: the video scales around the pin while the room fades in. |
 | UI | Milk-glass panels (backdrop-filter), Reem Kufi display + Readex Pro UI | Matches the warm sunset renders; Kufic echoes the mosque. |
 
-Dev helper: open `/?edit`, click the video → normalized `x/y` is logged + copied for `scenes.json`.
+Dev helper: open `/<id>?edit`, click the video → normalized `x/y` is logged + copied for `scenes.json`.
 
-## 3. Clip inventory (from `~/Downloads/sarab-videos`)
+## 3. Clip inventory: `sarab` (from `~/Downloads/sarab-videos`)
 
 | Web name | Source | Kind | Length |
 |---|---|---|---|
@@ -50,6 +50,23 @@ Dev helper: open `/?edit`, click the video → normalized `x/y` is logged + copi
 | mosque-to-main | ZoomOut/Camera_ZoomOut_Zone_Mosqe | transition | 4.0 s |
 | building-to-floor | ZoomIn/Camera_ZoonIn_TopView_Zone_floor | transition | 8.0 s |
 | floor-to-building | ZoomOut/Camera_ZoonOut_TopView_Zone_floor | transition | 8.0 s |
+
+### Clip inventory: `fayrouz` (from `~/Downloads/new cost profject `, added 2026-10-05)
+
+Coastal resort demo ("Fayrouz Bay"): main → bridge / residences / marina, one level deep. Mapping lives in
+`scripts/clips/fayrouz.txt`. All clips are H.264 Main, 1080p30, ~2 Mbps, keyframe every 1 s, so `encode.sh`
+copies them with faststart only (28 MB total; re-encoding them made 117 MB).
+
+| Web name | Kind | Length |
+|---|---|---|
+| main | idle | 20 s |
+| bridge, residences, marina | idle | 10 s each |
+| main-to-{bridge,residences,marina} | transition | 10 s each |
+| {bridge,residences,marina}-to-main | transition | 10 s each |
+
+Continuity is good: every boundary pair measures 31–34 dB (Sarab's were 13–20), so the fade is only 300 ms.
+Main-view pins were placed by tracking each zoom's last frame back to frame 0 (patch matching), then checked by eye.
+Pacing note: each zoom is 10 s and the first ~4 s barely move. 5–6 s zooms would feel more responsive on click.
 
 ## 4. Render feedback for the 3D team (measured, PSNR between boundary frames)
 
@@ -74,8 +91,8 @@ Dev helper: open `/?edit`, click the video → normalized `x/y` is logged + copi
 ## 5. Roadmap (only if the POC convinces)
 
 1. **Seamless renders** per §4 → drop the crossfade, cut on the exact frame.
-2. **Mobile**: portrait crop hides left-side pins today (16:9 cover). Add drag-to-pan on the stage
-   or a portrait render set; 720p mobile encodes.
+2. **Mobile**: done in part: tall screens can drag the stage sideways (`--pan`), with a one-time hint.
+   Still open: a portrait render set and 720p mobile encodes.
 3. **Hover-while-moving**: export Unreal camera keyframes + low-poly unit meshes (GLB/Draco), add a
    three.js overlay synced with `requestVideoFrameCallback` — the Vinode approach.
 4. **Live inventory**: Supabase table for units (status/price) + admin; colour units by status.
