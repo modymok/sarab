@@ -30,25 +30,38 @@ const idles = new Set(Object.values(scenes.views).map((v) => v.idle));
 const clips = {};
 for (const name of new Set([...idles, ...Object.values(scenes.transitions)])) {
   const v = document.createElement('video');
-  Object.assign(v, { muted: true, playsInline: true, preload: 'auto', src: `videos/${name}.mp4` });
+  // Only the opening loop buffers up front; warm() fetches the rest one hop ahead.
+  const preload = name === scenes.views[scenes.start].idle ? 'auto' : 'none';
+  Object.assign(v, { muted: true, playsInline: true, preload, src: `videos/${name}.mp4` });
   if (idles.has(name)) v.poster = `videos/${name}.jpg`;
   v.className = 'clip';
   $('clips').append(v);
   clips[name] = v;
 }
 
-// Loader: wait until every clip can play through (local/LAN this is instant).
-// ponytail: blocks on all clips; on a slow network wait only for the current view + its outgoing transitions.
+// Loader: wait only for the opening loop; the other clips keep buffering in the background
+// and play() waits for data if one is clicked early. Capped, because iOS Safari may not
+// buffer a video at all before it is played.
 await new Promise((done) => {
-  const all = Object.values(clips);
-  let ready = 0;
-  const tick = () => {
-    ready++;
-    $('loaderBar').style.width = `${(ready / all.length) * 100}%`;
-    if (ready === all.length) done();
-  };
-  all.forEach((v) => (v.readyState >= 4 ? tick() : v.addEventListener('canplaythrough', tick, { once: true })));
+  const first = clips[scenes.views[scenes.start].idle];
+  $('loaderBar').style.width = '35%';
+  if (first.readyState >= 3) return done();
+  first.addEventListener('canplay', done, { once: true });
+  setTimeout(done, 8000);
 });
+$('loaderBar').style.width = '100%';
+
+// Buffer what the next click can need: transitions out of `view` first, then the loops they land on.
+function warm(view) {
+  const next = scenes.views[view].hotspots.map((h) => h.go).filter(Boolean);
+  const parent = scenes.views[view].parent;
+  if (parent) next.push(parent);
+  const want = [...next.map((to) => scenes.transitions[`${view}>${to}`]), ...next.map((to) => scenes.views[to].idle)];
+  for (const name of want) {
+    const v = clips[name];
+    if (v && v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+  }
+}
 
 let z = 1;
 let shown = null;
@@ -59,7 +72,9 @@ const nextFrame = (v) => Promise.race([wait(250), new Promise((r) => ('requestVi
 async function crossTo(v, loop) {
   v.loop = loop;
   v.currentTime = 0;
+  if (v.readyState < 3) document.body.dataset.waiting = '1'; // clicked before the clip arrived
   await v.play().catch(() => {});
+  delete document.body.dataset.waiting;
   await nextFrame(v); // first decoded frame is on screen before we fade, so no black flash
   v.style.zIndex = ++z;
   v.classList.add('on');
@@ -98,6 +113,7 @@ async function navigate(target) {
   const down = chain(target);
   while (!down.includes(current)) await step(scenes.views[current].parent);
   for (const v of down.slice(down.indexOf(current) + 1)) await step(v);
+  warm(current);
   render();
   document.body.dataset.moving = '';
   busy = false;
@@ -262,5 +278,6 @@ if (EDIT) {
 // ---------- start ----------
 render();
 await crossTo(clips[scenes.views[current].idle], true);
+warm(current);
 $('loader').classList.add('done');
 document.body.dataset.moving = '';
