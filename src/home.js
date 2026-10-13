@@ -18,7 +18,7 @@ export function showHome(index) {
     document.title = index.ui.brand[lang];
     home.innerHTML = `
       <header class="home-top">
-        <p class="wordmark">${t(index.ui.brand)}</p>
+        <span aria-hidden="true"></span><!-- keeps the intro centred in the 1fr auto 1fr grid -->
         <div class="home-intro"><h1>${t(index.ui.title)}</h1><p>${t(index.ui.tagline)}</p></div>
         <button class="glass lang" type="button" data-lang>${t(index.ui.langSwitch)}</button>
       </header>
