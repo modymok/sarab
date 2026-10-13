@@ -52,6 +52,21 @@
         "ar": "مجتمع ساحلي من 420 وحدة سكنية حول بحيرة فيروزية ومرسى لليخوت، يمتد فيه فوق الماء جسر سكني ينتهي بجناح الفانوس.",
         "en": "A coastal community of 420 residences around a turquoise lagoon and a yacht marina, where an inhabited bridge runs over the water and ends at the Lantern pavilion."
       }
+    },
+    {
+      "id": "marjan",
+      "name": {
+        "ar": "خليج مرجان",
+        "en": "Marjan Bay"
+      },
+      "place": {
+        "ar": "بين الجبال والبحر",
+        "en": "Between the mountains and the sea"
+      },
+      "line": {
+        "ar": "منتجع للعافية على خليج محمي، يضم فندقين ومرسى لليخوت و180 مسكنًا بعلامة فندقية، بين الجبال والشعاب المرجانية.",
+        "en": "A wellness resort on a sheltered bay with two hotels, a yacht marina and 180 hotel-branded residences, set between the mountains and the reef."
+      }
     }
   ]
 }

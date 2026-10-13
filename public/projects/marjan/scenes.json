@@ -1,0 +1,180 @@
+{
+  "$comment": "View graph (same format as projects/fayrouz/scenes.json). Hotspot x/y are 0..1 of the 1920x1080 frame, estimated from each idle loop's first frame; still to be checked by eye with /marjan?edit. The zoom-ins end on their idle's first frame, but four of five do not start on main's frame, so the crossfade covers that seam. \"panel\": \"closed\" on views whose subject reaches the right third, where the panel sits. \"transitionRate\": 1.5 plays the 10 s zooms in about 6.7 s.",
+  "fadeMs": 300,
+  "transitionRate": 1.5,
+  "start": "main",
+  "views": {
+    "main": {
+      "idle": "main",
+      "parent": null,
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "hotel-1",
+          "x": 0.55,
+          "y": 0.7,
+          "go": "hotel-1"
+        },
+        {
+          "id": "hotel-2",
+          "x": 0.705,
+          "y": 0.48,
+          "go": "hotel-2"
+        },
+        {
+          "id": "left",
+          "x": 0.13,
+          "y": 0.64,
+          "go": "left"
+        },
+        {
+          "id": "right",
+          "x": 0.79,
+          "y": 0.555,
+          "go": "right"
+        },
+        {
+          "id": "marina",
+          "x": 0.36,
+          "y": 0.535,
+          "go": "marina"
+        }
+      ]
+    },
+    "hotel-1": {
+      "idle": "hotel-1",
+      "parent": "main",
+      "hotspots": [
+        {
+          "id": "pods",
+          "x": 0.375,
+          "y": 0.61,
+          "info": "pods"
+        },
+        {
+          "id": "lobby",
+          "x": 0.617,
+          "y": 0.736,
+          "info": "lobby"
+        },
+        {
+          "id": "reef",
+          "x": 0.7,
+          "y": 0.9,
+          "info": "reef"
+        }
+      ]
+    },
+    "hotel-2": {
+      "idle": "hotel-2",
+      "parent": "main",
+      "hotspots": [
+        {
+          "id": "ringroof",
+          "x": 0.39,
+          "y": 0.37,
+          "info": "ringroof"
+        },
+        {
+          "id": "pavilion",
+          "x": 0.43,
+          "y": 0.83,
+          "info": "pavilion"
+        },
+        {
+          "id": "harbour",
+          "x": 0.44,
+          "y": 0.2,
+          "info": "harbour"
+        }
+      ]
+    },
+    "left": {
+      "idle": "left",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "parking",
+          "x": 0.2,
+          "y": 0.7,
+          "info": "parking"
+        },
+        {
+          "id": "services",
+          "x": 0.45,
+          "y": 0.83,
+          "info": "services"
+        },
+        {
+          "id": "residences",
+          "x": 0.74,
+          "y": 0.62,
+          "info": "residences"
+        }
+      ]
+    },
+    "right": {
+      "idle": "right",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "villas",
+          "x": 0.265,
+          "y": 0.625,
+          "info": "villas"
+        },
+        {
+          "id": "ring",
+          "x": 0.54,
+          "y": 0.65,
+          "info": "ring"
+        },
+        {
+          "id": "beach",
+          "x": 0.77,
+          "y": 0.69,
+          "info": "beach"
+        }
+      ]
+    },
+    "marina": {
+      "idle": "marina",
+      "parent": "main",
+      "panel": "closed",
+      "hotspots": [
+        {
+          "id": "yachtclub",
+          "x": 0.49,
+          "y": 0.5,
+          "info": "yachtclub"
+        },
+        {
+          "id": "berths",
+          "x": 0.4,
+          "y": 0.7,
+          "info": "berths"
+        },
+        {
+          "id": "quay",
+          "x": 0.73,
+          "y": 0.43,
+          "info": "quay"
+        }
+      ]
+    }
+  },
+  "transitions": {
+    "main>hotel-1": "main-to-hotel-1",
+    "hotel-1>main": "hotel-1-to-main",
+    "main>hotel-2": "main-to-hotel-2",
+    "hotel-2>main": "hotel-2-to-main",
+    "main>left": "main-to-left",
+    "left>main": "left-to-main",
+    "main>right": "main-to-right",
+    "right>main": "right-to-main",
+    "main>marina": "main-to-marina",
+    "marina>main": "marina-to-main"
+  }
+}

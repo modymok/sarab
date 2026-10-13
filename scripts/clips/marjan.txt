@@ -1,0 +1,17 @@
+# web-name:source path relative to the raw folder (flat delivery; "Amalla" typo kept as delivered)
+main:LS_AmallaMain_Idle.mp4
+hotel-1:LS_Idle_Hotel_1.mp4
+hotel-2:LS_Idle_Hotel_2.mp4
+left:LS_Idle_Left.mp4
+right:LS_Idle_Right.mp4
+marina:LS_Idle_Marina.mp4
+main-to-hotel-1:LS_T_F_Hotel_1.mp4
+hotel-1-to-main:LS_T_R_Hotel_1.mp4
+main-to-hotel-2:LS_T_F_Hotel_2.mp4
+hotel-2-to-main:LS_T_R_Hotel_2.mp4
+main-to-left:LS_T_F_Left.mp4
+left-to-main:LS_T_R_Left.mp4
+main-to-right:LS_T_F_Right.mp4
+right-to-main:LS_T_R_Right.mp4
+main-to-marina:LS_T_F_Marina.mp4
+marina-to-main:LS_T_R_Marina.mp4
