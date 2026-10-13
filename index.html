@@ -12,7 +12,7 @@
   <script type="module" src="/src/main.js"></script>
 </head>
 <body data-moving="1">
-  <!-- "/" shows #home; "/<project>" shows #player. src/main.js removes the one not in use. -->
+  <!-- "<base>" shows #home; "<base><project>" shows #player. src/main.js removes the one not in use. -->
   <main class="home" id="home" hidden></main>
 
   <div id="player">
@@ -25,7 +25,7 @@
     <div class="veil"></div>
 
     <header class="top">
-      <a class="glass brand" id="brand" href="/"></a>
+      <a class="glass brand" id="brand" href="/"></a><!-- href set to the base in src/main.js -->
       <nav class="glass crumbs" id="crumbs" aria-label="breadcrumb"></nav>
       <button class="glass lang" id="lang" type="button"></button>
     </header>

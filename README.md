@@ -15,6 +15,7 @@ Live: https://sarab-xi.vercel.app (home lists the projects; deployed with `npx v
 ```bash
 pnpm install
 pnpm dev          # http://localhost:5173
+SARAB_BASE=/demos/ pnpm build   # build for a URL prefix (ayntwin.com/demos/)
 ```
 
 `/<id>?edit` turns on edit mode: click the video and it prints hotspot coordinates for that project's `scenes.json`.

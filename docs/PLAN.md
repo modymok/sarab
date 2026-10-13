@@ -121,3 +121,6 @@ Mapping lives in `scripts/clips/marjan.txt` (flat delivery: `LS_Idle_<Zone>`, `L
 6. **Hosting**: Cloudflare Pages + R2 for clips (no egress fees for video) or Vercel + R2.
    Load only the current view + its outgoing transitions instead of every clip.
 7. **Productise**: multi-project config, per-client theming, embeddable iframe.
+   URL prefix: the build takes `SARAB_BASE=/demos/` to run under ayntwin.com/demos (home at `<base>`,
+   explorer at `<base><id>`). The host needs an SPA rewrite of `<base><id>` → `<base>index.html`
+   (a CloudFront Function on ayntwin.com; `vercel.json` on Vercel, where base is `/`).
