@@ -68,6 +68,26 @@ Continuity is good: every boundary pair measures 31–34 dB (Sarab's were 13–2
 Main-view pins were placed by tracking each zoom's last frame back to frame 0 (patch matching), then checked by eye.
 Pacing note: each zoom is 10 s and the first ~4 s barely move. 5–6 s zooms would feel more responsive on click.
 
+### Clip inventory: `marjan` (from `~/Downloads/Amaala`, added 2026-10-13)
+
+Coastal wellness resort demo ("Marjan Bay"; footage delivered as "Amaala"): main → hotel-1 / hotel-2 / left / right / marina, one level deep.
+Mapping lives in `scripts/clips/marjan.txt` (flat delivery: `LS_Idle_<Zone>`, `LS_T_F_<Zone>` = zoom in,
+`LS_T_R_<Zone>` = zoom out, `LS_AmallaMain_Idle` = main). Sources are 2560×1440 H.264 at 15–17 Mbps, so
+`encode.sh` transcodes them to 1080p.
+
+| Web name | Kind | Length |
+|---|---|---|
+| main | idle | 20 s |
+| hotel-1, hotel-2, left, right, marina | idle | 10 s each |
+| main-to-{hotel-1,hotel-2,left,right,marina} | transition | 10 s each |
+| {hotel-1,hotel-2,left,right,marina}-to-main | transition | 10 s each |
+
+- Zoom-in end → idle start: 36–38 dB on all five (clean).
+- Main → zoom-in start: 18–22 dB (Right 34), and zoom-out end → main: 18–22 dB. Four of five zooms were not
+  rendered from main's frame; the 300 ms crossfade covers it.
+- Idle loops (last → first frame): Left/Right 36, Hotel_2 29, Hotel_1 27, Marina 24, main 23 dB (boats and water move).
+- Main-view pins were estimated from frame 0 of each idle; still to be checked by eye with `/marjan?edit`.
+
 ## 4. Render feedback for the 3D team (measured, PSNR between boundary frames)
 
 - Idle loops close well (32–34 dB). Keep doing that.
@@ -78,6 +98,7 @@ Pacing note: each zoom is 10 s and the first ~4 s barely move. 5–6 s zooms wou
 - Floor zoom clips were delivered at 854×480 (others 1920×1080) — re-render at 1080p.
 - Zoom-in clips came as 48 Mbps HEVC 10-bit; export H.264 (or ProRes masters) and let `encode.sh` compress.
 - Filenames have typos (`Mosqe`, `Zoon`). Proposed convention: `<from>__<to>.mp4`, idle = `<view>__<view>.mp4`.
+- Marjan (Amaala footage): deliver zooms that start on main's exact idle frame (4 of 5 don't), and say which resolution you export (1080p or 1440p are both fine).
 
 ### 360° interiors (delivered 2026-10-05)
 

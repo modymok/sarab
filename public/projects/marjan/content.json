@@ -1,0 +1,744 @@
+{
+  "$comment": "Marjan Bay demo content. All figures are fabricated. Every user-facing string is {ar, en}.",
+  "ui": {
+    "brand": {
+      "ar": "خليج مرجان",
+      "en": "Marjan Bay"
+    },
+    "langSwitch": {
+      "ar": "English",
+      "en": "العربية"
+    },
+    "back": {
+      "ar": "رجوع",
+      "en": "Back"
+    },
+    "explore": {
+      "ar": "استكشف",
+      "en": "Explore"
+    },
+    "loading": {
+      "ar": "جارٍ تجهيز المشهد",
+      "en": "Preparing the view"
+    },
+    "bookVisit": {
+      "ar": "احجز موعد زيارة",
+      "en": "Book a site visit"
+    },
+    "demoOnly": {
+      "ar": "هذا عرض تجريبي، الحجز غير مفعّل",
+      "en": "This is a demo. Booking is turned off."
+    },
+    "status": {
+      "available": {
+        "ar": "متاحة",
+        "en": "Available"
+      },
+      "reserved": {
+        "ar": "محجوزة",
+        "en": "Reserved"
+      },
+      "sold": {
+        "ar": "مباعة",
+        "en": "Sold"
+      }
+    },
+    "sar": {
+      "ar": "ر.س",
+      "en": "SAR"
+    },
+    "sqm": {
+      "ar": "م²",
+      "en": "m²"
+    },
+    "editHint": {
+      "ar": "وضع التحرير: انقر لقراءة الإحداثيات",
+      "en": "Edit mode: click to read coordinates"
+    },
+    "lookAround": {
+      "ar": "اسحب للنظر حولك",
+      "en": "Drag to look around"
+    },
+    "backToPlan": {
+      "ar": "العودة إلى المشهد",
+      "en": "Back to the view"
+    },
+    "rooms360": {
+      "ar": "أماكن بجولة 360°",
+      "en": "Places in 360°"
+    },
+    "allProjects": {
+      "ar": "كل المشاريع",
+      "en": "All projects"
+    },
+    "details": {
+      "ar": "التفاصيل",
+      "en": "Details"
+    },
+    "dragToExplore": {
+      "ar": "اسحب المشهد يمينًا ويسارًا لرؤية المزيد",
+      "en": "Drag the scene sideways to see more"
+    },
+    "m": {
+      "ar": "م",
+      "en": "m"
+    }
+  },
+  "views": {
+    "main": {
+      "title": {
+        "ar": "خليج مرجان",
+        "en": "Marjan Bay"
+      },
+      "subtitle": {
+        "ar": "بين الجبال والبحر",
+        "en": "Between the mountains and the sea"
+      },
+      "lead": {
+        "ar": "منتجع للعافية على خليج محمي، يضم فندقين ومرسى لليخوت و180 مسكنًا بعلامة فندقية، بين الجبال والشعاب المرجانية.",
+        "en": "A wellness resort on a sheltered bay with two hotels, a yacht marina and 180 hotel-branded residences, set between the mountains and the reef."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "مسكن بعلامة فندقية",
+            "en": "Branded residences"
+          },
+          "value": "180"
+        },
+        {
+          "label": {
+            "ar": "متاحة الآن",
+            "en": "Available now"
+          },
+          "value": "41"
+        },
+        {
+          "label": {
+            "ar": "مساحة المشروع",
+            "en": "Site area"
+          },
+          "value": "465,000",
+          "unit": "sqm"
+        },
+        {
+          "label": {
+            "ar": "الافتتاح",
+            "en": "Opening"
+          },
+          "value": {
+            "ar": "الربع الرابع 2027",
+            "en": "Q4 2027"
+          }
+        }
+      ],
+      "features": [
+        {
+          "ar": "شاطئ رملي بطول 2.1 كم",
+          "en": "2.1 km sandy beach"
+        },
+        {
+          "ar": "شعاب مرجانية على بعد خطوات من الشاطئ",
+          "en": "Coral reef a few steps from the shore"
+        },
+        {
+          "ar": "مركز للعافية والاستشفاء",
+          "en": "Wellness and recovery centre"
+        },
+        {
+          "ar": "مرسى يتسع لـ 120 يختًا",
+          "en": "Marina for 120 yachts"
+        }
+      ],
+      "pins": {
+        "hotel-1": {
+          "title": {
+            "ar": "نُزل الرأس",
+            "en": "Al Ras Retreat"
+          },
+          "note": {
+            "ar": "64 جناحًا على الرأس الصخري",
+            "en": "64 suites on the headland"
+          }
+        },
+        "hotel-2": {
+          "title": {
+            "ar": "فندق الهالة",
+            "en": "Halo Hotel"
+          },
+          "note": {
+            "ar": "210 غرف وصالة على السطح",
+            "en": "210 rooms and a rooftop lounge"
+          }
+        },
+        "left": {
+          "title": {
+            "ar": "حي الوصول",
+            "en": "Arrival District"
+          },
+          "note": {
+            "ar": "96 مسكنًا وخدمات المنتجع",
+            "en": "96 residences and resort services"
+          }
+        },
+        "right": {
+          "title": {
+            "ar": "جزيرة الفلل",
+            "en": "Villa Island"
+          },
+          "note": {
+            "ar": "36 فيلا على الشاطئ",
+            "en": "36 beachfront villas"
+          }
+        },
+        "marina": {
+          "title": {
+            "ar": "مرسى مرجان",
+            "en": "Marjan Marina"
+          },
+          "note": {
+            "ar": "120 مربطًا لليخوت",
+            "en": "120 yacht berths"
+          }
+        }
+      }
+    },
+    "hotel-1": {
+      "title": {
+        "ar": "نُزل الرأس",
+        "en": "Al Ras Retreat"
+      },
+      "subtitle": {
+        "ar": "على الرأس الصخري فوق الشعاب",
+        "en": "On the rocky headland above the reef"
+      },
+      "lead": {
+        "ar": "فندق بوتيكي من 64 جناحًا، صُمّمت أجنحته كتلًا بيضاء منحوتة تتجاور على الرأس الصخري، ولكلٍّ منها شرفة تطل على الشعاب المرجانية.",
+        "en": "A 64-suite boutique hotel whose suites are sculpted white pods clustered on the rocky headland, each with a terrace facing the coral reef."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "الأجنحة",
+            "en": "Suites"
+          },
+          "value": "64"
+        },
+        {
+          "label": {
+            "ar": "مساحة الجناح من",
+            "en": "Suites from"
+          },
+          "value": "85",
+          "unit": "sqm"
+        },
+        {
+          "label": {
+            "ar": "السبا",
+            "en": "Spa"
+          },
+          "value": "2,800",
+          "unit": "sqm"
+        },
+        {
+          "label": {
+            "ar": "الافتتاح",
+            "en": "Opening"
+          },
+          "value": {
+            "ar": "الربع الرابع 2027",
+            "en": "Q4 2027"
+          }
+        }
+      ],
+      "features": [
+        {
+          "ar": "مسبح لا متناهٍ على حافة الرأس",
+          "en": "Infinity pool on the edge of the headland"
+        },
+        {
+          "ar": "درج حجري إلى خليج سباحة خاص",
+          "en": "Stone steps down to a private swimming cove"
+        },
+        {
+          "ar": "مطعم يقدّم صيد اليوم من البحر",
+          "en": "A restaurant serving the day's catch"
+        },
+        {
+          "ar": "مسار مشي حول الرأس بطول 1.2 كم",
+          "en": "1.2 km walking trail around the headland"
+        }
+      ],
+      "rooms": {
+        "pods": {
+          "title": {
+            "ar": "الأجنحة",
+            "en": "The suites"
+          },
+          "note": {
+            "ar": "تتلاصق الأجنحة البيضاء كأنها خلية واحدة، وتنفتح نوافذها على البحر، وفي كل جناح حوض استحمام في الهواء الطلق.",
+            "en": "The white suites cluster like a single hive with their windows open to the sea, and every suite has an outdoor bath."
+          },
+          "area": 85
+        },
+        "lobby": {
+          "title": {
+            "ar": "البهو والسبا",
+            "en": "Lobby and spa"
+          },
+          "note": {
+            "ar": "أعلى كتل الفندق، يشغل البهو مستواه العلوي، وتحته سبا من 12 غرفة علاج.",
+            "en": "The tallest volume in the hotel, with the lobby on its upper level and a 12-room spa below."
+          },
+          "area": 2800
+        },
+        "reef": {
+          "title": {
+            "ar": "الشعاب",
+            "en": "The reef"
+          },
+          "note": {
+            "ar": "تبدأ الشعاب المرجانية على بعد 40 مترًا من الرأس، ويصلها النزلاء سباحةً من الخليج الخاص.",
+            "en": "The coral reef starts 40 m off the headland, and guests swim out to it from the private cove."
+          }
+        }
+      }
+    },
+    "hotel-2": {
+      "title": {
+        "ar": "فندق الهالة",
+        "en": "Halo Hotel"
+      },
+      "subtitle": {
+        "ar": "بين جزيرة الفلل والمرسى",
+        "en": "Between Villa Island and the marina"
+      },
+      "lead": {
+        "ar": "فندق دائري من خمسة طوابق يلتف حول فناء مزروع، يعلوه سقف ذهبي فوقه صالة تطل على المرسى، وفي طوابقه العليا 48 مسكنًا بخدمات فندقية.",
+        "en": "A five-storey round hotel wrapped around a planted courtyard, crowned by a gold roof with a lounge over the marina, and 48 serviced residences on its upper floors."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "الغرف",
+            "en": "Rooms"
+          },
+          "value": "210"
+        },
+        {
+          "label": {
+            "ar": "الطوابق",
+            "en": "Floors"
+          },
+          "value": "5"
+        },
+        {
+          "label": {
+            "ar": "مساكن بخدمات فندقية",
+            "en": "Serviced residences"
+          },
+          "value": "48"
+        },
+        {
+          "label": {
+            "ar": "متاحة",
+            "en": "Available"
+          },
+          "value": "12"
+        }
+      ],
+      "features": [
+        {
+          "ar": "صالة على السطح الذهبي",
+          "en": "Lounge on the gold roof"
+        },
+        {
+          "ar": "فناء مزروع في قلب الحلقة",
+          "en": "Planted courtyard inside the ring"
+        },
+        {
+          "ar": "ثلاثة مطاعم",
+          "en": "Three restaurants"
+        },
+        {
+          "ar": "مسبح بين الحدائق",
+          "en": "Pool set in the gardens"
+        }
+      ],
+      "rooms": {
+        "ringroof": {
+          "title": {
+            "ar": "السطح الذهبي",
+            "en": "The gold roof"
+          },
+          "note": {
+            "ar": "صالة مفتوحة فوق الحلقة، تطل من جهةٍ على المرسى ومن الأخرى على الجبال.",
+            "en": "An open lounge on top of the ring, looking over the marina on one side and the mountains on the other."
+          },
+          "area": 1900
+        },
+        "pavilion": {
+          "title": {
+            "ar": "جناح الحديقة",
+            "en": "Garden pavilion"
+          },
+          "note": {
+            "ar": "جناح خشبي مثلث بُني حول شجرة قائمة، يُقدَّم فيه الإفطار وتُقام فيه جلسات اليوغا الصباحية.",
+            "en": "A triangular timber pavilion built around an existing tree, used for breakfast and morning yoga."
+          },
+          "area": 620
+        },
+        "harbour": {
+          "title": {
+            "ar": "على المرسى",
+            "en": "On the marina"
+          },
+          "note": {
+            "ar": "خمس دقائق سيرًا من بهو الفندق إلى نادي اليخوت والمرابط.",
+            "en": "A five-minute walk from the hotel lobby to the yacht club and the berths."
+          }
+        }
+      }
+    },
+    "left": {
+      "title": {
+        "ar": "حي الوصول",
+        "en": "Arrival District"
+      },
+      "subtitle": {
+        "ar": "مدخل المنتجع من جهة البر",
+        "en": "The resort's landward entrance"
+      },
+      "lead": {
+        "ar": "أول ما يستقبل الزائر: مواقف مظللة وقاعة استقبال ومباني الخدمات، وخلفها 96 مسكنًا في مجمعات منخفضة تمتد حتى الشاطئ.",
+        "en": "The first thing visitors see: shaded parking, a welcome hall and the service buildings, with 96 residences in low-rise clusters stretching to the beach behind them."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "مسكن",
+            "en": "Residences"
+          },
+          "value": "96"
+        },
+        {
+          "label": {
+            "ar": "متاحة",
+            "en": "Available"
+          },
+          "value": "18"
+        },
+        {
+          "label": {
+            "ar": "المواقف",
+            "en": "Parking spaces"
+          },
+          "value": "640"
+        },
+        {
+          "label": {
+            "ar": "إلى الشاطئ سيرًا",
+            "en": "Walk to the beach"
+          },
+          "value": {
+            "ar": "5 دقائق",
+            "en": "5 min"
+          }
+        }
+      ],
+      "features": [
+        {
+          "ar": "مواقف مظللة بألواح شمسية",
+          "en": "Parking shaded by solar panels"
+        },
+        {
+          "ar": "عربات كهربائية تجوب المنتجع",
+          "en": "Electric buggies across the resort"
+        },
+        {
+          "ar": "بقالة وصيدلية",
+          "en": "Grocery and pharmacy"
+        },
+        {
+          "ar": "نادٍ رياضي للسكان",
+          "en": "Residents' fitness club"
+        }
+      ],
+      "rooms": {
+        "parking": {
+          "title": {
+            "ar": "المواقف",
+            "en": "Parking"
+          },
+          "note": {
+            "ar": "640 موقفًا تحت مظلات من الألواح الشمسية، ومنها تنقل العربات الكهربائية الزوار إلى أي مكان في المنتجع.",
+            "en": "640 spaces under solar canopies, where electric buggies pick visitors up for anywhere in the resort."
+          }
+        },
+        "services": {
+          "title": {
+            "ar": "مباني الخدمات",
+            "en": "Service buildings"
+          },
+          "note": {
+            "ar": "المغسلة المركزية والمستودعات وورش الصيانة، بعيدًا عن أنظار الضيوف وقريبًا من الطريق.",
+            "en": "The central laundry, stores and maintenance workshops, out of guests' sight and close to the road."
+          },
+          "area": 7400
+        },
+        "residences": {
+          "title": {
+            "ar": "مساكن الشاطئ",
+            "en": "Beach residences"
+          },
+          "note": {
+            "ar": "شقق من غرفة إلى ثلاث غرف نوم في مبانٍ من ثلاثة طوابق، تطل على البحر وعلى حدائق داخلية.",
+            "en": "One- to three-bedroom apartments in three-storey buildings, looking onto the sea and inner gardens."
+          }
+        }
+      }
+    },
+    "right": {
+      "title": {
+        "ar": "جزيرة الفلل",
+        "en": "Villa Island"
+      },
+      "subtitle": {
+        "ar": "بين الشعاب والشاطئ",
+        "en": "Between the reef and the beach"
+      },
+      "lead": {
+        "ar": "جزيرة يصلها جسر قصير، فيها 36 فيلا لكلٍّ منها مسبح ومدخل خاص إلى الشاطئ، ويحدّها من الجهة الأخرى شاطئ رملي على هيئة هلال.",
+        "en": "An island reached by a short bridge, with 36 villas that each have a pool and private beach access, and a crescent of sand along its far side."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "غرف النوم",
+            "en": "Bedrooms"
+          },
+          "value": {
+            "ar": "4 إلى 6",
+            "en": "4 to 6"
+          }
+        },
+        {
+          "label": {
+            "ar": "الفلل",
+            "en": "Villas"
+          },
+          "value": "36"
+        },
+        {
+          "label": {
+            "ar": "متاحة",
+            "en": "Available"
+          },
+          "value": "7"
+        },
+        {
+          "label": {
+            "ar": "يبدأ من",
+            "en": "From"
+          },
+          "value": "14,500,000",
+          "unit": "sar"
+        }
+      ],
+      "units": [
+        {
+          "id": "V-04",
+          "floor": {
+            "ar": "على الشاطئ",
+            "en": "Beachfront"
+          },
+          "area": 820,
+          "beds": 6,
+          "price": 28900000,
+          "status": "sold"
+        },
+        {
+          "id": "V-11",
+          "floor": {
+            "ar": "على حافة الشعاب",
+            "en": "Reef edge"
+          },
+          "area": 640,
+          "beds": 5,
+          "price": 21400000,
+          "status": "reserved"
+        },
+        {
+          "id": "V-18",
+          "floor": {
+            "ar": "بين الحدائق",
+            "en": "Garden"
+          },
+          "area": 480,
+          "beds": 4,
+          "price": 15800000,
+          "status": "available"
+        },
+        {
+          "id": "V-23",
+          "floor": {
+            "ar": "بين الحدائق",
+            "en": "Garden"
+          },
+          "area": 455,
+          "beds": 4,
+          "price": 14500000,
+          "status": "available"
+        }
+      ],
+      "features": [
+        {
+          "ar": "مسبح خاص لكل فيلا",
+          "en": "A private pool for every villa"
+        },
+        {
+          "ar": "مدخل خاص إلى الشاطئ",
+          "en": "Private beach access"
+        },
+        {
+          "ar": "خدمات فندق الهالة",
+          "en": "Halo Hotel services"
+        },
+        {
+          "ar": "رصيف للقوارب الصغيرة",
+          "en": "Jetty for small boats"
+        }
+      ],
+      "rooms": {
+        "villas": {
+          "title": {
+            "ar": "الفلل",
+            "en": "The villas"
+          },
+          "note": {
+            "ar": "فلل من دور واحد تحت أسقف مسطحة عميقة الظل، تنفتح صالاتها على المسبح ثم على البحر.",
+            "en": "Single-storey villas under deep, shading flat roofs, their living rooms opening onto the pool and then the sea."
+          },
+          "area": 640
+        },
+        "ring": {
+          "title": {
+            "ar": "فندق الهالة",
+            "en": "Halo Hotel"
+          },
+          "note": {
+            "ar": "على بعد 3 دقائق سيرًا، ويقدّم لسكان الجزيرة كل خدماته من المطاعم إلى تنظيف الفلل.",
+            "en": "A 3-minute walk away, serving the island's residents with everything from dining to housekeeping."
+          }
+        },
+        "beach": {
+          "title": {
+            "ar": "شاطئ الهلال",
+            "en": "Crescent beach"
+          },
+          "note": {
+            "ar": "شاطئ رملي بطول 900 متر، مياهه ضحلة وهادئة يحميها حاجز مرجاني.",
+            "en": "A 900 m sandy beach with calm, shallow water sheltered by a coral reef."
+          }
+        }
+      }
+    },
+    "marina": {
+      "title": {
+        "ar": "مرسى مرجان",
+        "en": "Marjan Marina"
+      },
+      "subtitle": {
+        "ar": "قلب المنتجع على الماء",
+        "en": "The resort's heart on the water"
+      },
+      "lead": {
+        "ar": "مرسى يتسع لـ 120 يختًا، منها 8 مرابط لليخوت الكبيرة حتى 90 مترًا، ويتوسطه نادٍ لليخوت بتصميم منحوت يطل على الأرصفة.",
+        "en": "A marina for 120 yachts, including 8 superyacht berths up to 90 m, with a sculptural yacht club at its centre overlooking the pontoons."
+      },
+      "stats": [
+        {
+          "label": {
+            "ar": "المرابط",
+            "en": "Berths"
+          },
+          "value": "120"
+        },
+        {
+          "label": {
+            "ar": "أقصى طول لليخت",
+            "en": "Maximum yacht length"
+          },
+          "value": "90",
+          "unit": "m"
+        },
+        {
+          "label": {
+            "ar": "مرابط اليخوت الكبيرة",
+            "en": "Superyacht berths"
+          },
+          "value": "8"
+        },
+        {
+          "label": {
+            "ar": "عمق المياه",
+            "en": "Water depth"
+          },
+          "value": "6.5",
+          "unit": "m"
+        }
+      ],
+      "features": [
+        {
+          "ar": "رصيف للوقود والصيانة",
+          "en": "Fuel and service dock"
+        },
+        {
+          "ar": "تخليص جمركي في المرسى",
+          "en": "Customs clearance on site"
+        },
+        {
+          "ar": "متاجر ومقاهٍ على الواجهة البحرية",
+          "en": "Shops and cafés along the waterfront"
+        },
+        {
+          "ar": "مكتب للمرسى يعمل على مدار الساعة",
+          "en": "Marina office open 24 hours"
+        }
+      ],
+      "rooms": {
+        "yachtclub": {
+          "title": {
+            "ar": "نادي اليخوت",
+            "en": "Yacht club"
+          },
+          "note": {
+            "ar": "مبنى من طبقات منحنية يضم مطعمًا وصالة للأعضاء ومسبحًا على السطح يطل على المرابط.",
+            "en": "A building of curving layers with a restaurant, a members' lounge and a roof pool overlooking the berths."
+          },
+          "area": 3200
+        },
+        "berths": {
+          "title": {
+            "ar": "مرابط اليخوت الكبيرة",
+            "en": "Superyacht berths"
+          },
+          "note": {
+            "ar": "8 مرابط على الرصيف الرئيسي ليخوت يصل طولها إلى 90 مترًا، مزوّدة بالكهرباء والمياه والوقود.",
+            "en": "8 berths on the main quay for yachts up to 90 m, with power, water and fuel."
+          }
+        },
+        "quay": {
+          "title": {
+            "ar": "الواجهة البحرية",
+            "en": "The waterfront"
+          },
+          "note": {
+            "ar": "ممشى بطول 750 مترًا يلتف حول المرسى، تصطف عليه المتاجر والمقاهي والمطاعم.",
+            "en": "A 750 m promenade around the marina, lined with shops, cafés and restaurants."
+          }
+        }
+      }
+    }
+  }
+}
