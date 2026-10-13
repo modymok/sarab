@@ -15,8 +15,10 @@ const FADE = scenes.fadeMs;
 document.documentElement.style.setProperty('--fade', `${FADE}ms`);
 const EDIT = new URLSearchParams(location.search).has('edit');
 
-let lang = 'ar';
-try { lang = localStorage.getItem('sarab.lang') || 'ar'; } catch {}
+// ponytail: English only while the Ayn Twin site is English; restore the localStorage read and
+// unhide #lang to bring the Arabic toggle back (all strings are still {ar, en}).
+const lang = 'en';
+$('lang').hidden = true;
 let current = scenes.start;
 let activeInfo = null;
 let room = null; // hotspot whose 360° view is open
@@ -271,11 +273,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && e.target.dataset?.go) navigate(e.target.dataset.go);
 });
 $('back').addEventListener('click', up);
-$('lang').addEventListener('click', () => {
-  lang = lang === 'ar' ? 'en' : 'ar';
-  try { localStorage.setItem('sarab.lang', lang); } catch {}
-  render();
-});
 
 // Tall screens crop the 16:9 frame at the sides, hiding side hotspots: drag the scene sideways.
 let pan = 0;
