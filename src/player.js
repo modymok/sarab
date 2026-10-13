@@ -4,9 +4,10 @@
 
 const $ = (id) => document.getElementById(id);
 const load = (url) => fetch(url).then((r) => r.json());
-const ROOT = `/projects/${location.pathname.split('/').filter(Boolean)[0]}/`;
+const BASE = import.meta.env.BASE_URL;
+const ROOT = `${BASE}projects/${location.pathname.slice(BASE.length).split('/').filter(Boolean)[0]}/`;
 const [scenes, content] = await Promise.all([load(`${ROOT}scenes.json`), load(`${ROOT}content.json`)]).catch(() => {
-  location.replace('/'); // unknown project id → the project list
+  location.replace(BASE); // unknown project id → the project list
   return new Promise(() => {});
 });
 

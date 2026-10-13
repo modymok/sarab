@@ -1,6 +1,7 @@
 // Project list ("/"): one full-height panel per project. Hovering or focusing a panel
 // widens it and plays that project's opening loop as a preview; clicking opens /<id>.
 
+const BASE = import.meta.env.BASE_URL;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const canPreview = matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)');
 
@@ -23,9 +24,9 @@ export function showHome(index) {
       </header>
       <nav class="projects" aria-label="${t(index.ui.title)}">
         ${index.projects.map((p) => `
-        <a class="project" href="/${p.id}">
-          <img src="/projects/${p.id}/videos/main.jpg" alt="" />
-          <video muted playsinline loop preload="none" src="/projects/${p.id}/videos/main.mp4" aria-hidden="true"></video>
+        <a class="project" href="${BASE}${p.id}">
+          <img src="${BASE}projects/${p.id}/videos/main.jpg" alt="" />
+          <video muted playsinline loop preload="none" src="${BASE}projects/${p.id}/videos/main.mp4" aria-hidden="true"></video>
           <span class="project-text">
             <span class="project-place">${t(p.place)}</span>
             <span class="project-name">${t(p.name)}</span>
