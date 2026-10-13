@@ -7,8 +7,9 @@ const canPreview = matchMedia('(hover: hover) and (prefers-reduced-motion: no-pr
 
 export function showHome(index) {
   const home = document.getElementById('home');
-  let lang = 'ar';
-  try { lang = localStorage.getItem('sarab.lang') || 'ar'; } catch {}
+  // ponytail: English only while the Ayn Twin site is English; restore the localStorage read
+  // and the [data-lang] button to bring the Arabic toggle back (all strings are still {ar, en}).
+  const lang = 'en';
 
   function render() {
     const t = (v) => esc(v[lang]);
@@ -20,7 +21,6 @@ export function showHome(index) {
       <header class="home-top">
         <span aria-hidden="true"></span><!-- keeps the intro centred in the 1fr auto 1fr grid -->
         <div class="home-intro"><h1>${t(index.ui.title)}</h1><p>${t(index.ui.tagline)}</p></div>
-        <button class="glass lang" type="button" data-lang>${t(index.ui.langSwitch)}</button>
       </header>
       <nav class="projects" aria-label="${t(index.ui.title)}">
         ${index.projects.map((p) => `
@@ -52,13 +52,6 @@ export function showHome(index) {
   home.addEventListener('mouseover', (e) => preview(e.target.closest('.project')));
   home.addEventListener('mouseleave', () => preview(null));
   home.addEventListener('focusin', (e) => preview(e.target.closest('.project')));
-  home.addEventListener('click', (e) => {
-    if (!e.target.closest('[data-lang]')) return;
-    lang = lang === 'ar' ? 'en' : 'ar';
-    try { localStorage.setItem('sarab.lang', lang); } catch {}
-    render();
-    home.querySelector('[data-lang]').focus();
-  });
 
   render();
   home.hidden = false;

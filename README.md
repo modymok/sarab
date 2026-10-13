@@ -1,7 +1,7 @@
 # Sarab
 
 POC: real-estate explorers driven by pre-rendered video. Idle loops plus zoom transitions, glass UI on top,
-Arabic (default) and English. All demo content is fabricated.
+English only for now (every string is still stored in Arabic and English; the toggle is switched off until ayntwin.com is bilingual). All demo content is fabricated.
 
 Live: https://sarab-xi.vercel.app (home lists the projects; deployed with `npx vercel deploy --prod`)
 
