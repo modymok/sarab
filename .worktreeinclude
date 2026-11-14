@@ -1,0 +1,5 @@
+# Gitignored files Claude Code copies into each new worktree (one path or
+# glob per line, .gitignore syntax). Empty by default: list only what a fresh
+# worktree cannot run without, for example local env files:
+# .env.local
+# .env*.local
