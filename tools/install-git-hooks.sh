@@ -2,7 +2,9 @@
 # Point core.hooksPath at <root>/.githooks (secret-scan pre-commit) in the
 # repo and every initialised submodule.
 # Run after cloning and after adding or initialising a submodule.
-# Git worktrees share their repo's config, so they are covered too.
+# Git worktrees share their repo's config, so they are covered too. Run from a
+# linked worktree, it wires the main checkout's .githooks (core.hooksPath is
+# shared and must survive `git worktree remove`), or warns if that has none yet.
 #   tools/install-git-hooks.sh           wire every repo
 #   tools/install-git-hooks.sh --force   also overwrite a different hooksPath
 #   tools/install-git-hooks.sh --check   report only; exit 1 if any repo is not wired
@@ -25,6 +27,27 @@ if [ ! -x "$HOOKS/pre-commit" ]; then
   exit 1
 fi
 
+# Linked worktree: its git dir differs from the shared (common) one.
+gitdir=$(cd "$ROOT" && cd "$(git rev-parse --git-dir)" && pwd -P)
+common=$(cd "$ROOT" && cd "$(git rev-parse --git-common-dir)" && pwd -P)
+if [ "$gitdir" != "$common" ]; then
+  main=$(git -C "$ROOT" worktree list --porcelain | sed -n '1s/^worktree //p')
+  if [ -x "$main/.githooks/pre-commit" ]; then
+    HOOKS="$main/.githooks"
+  else
+    {
+      echo "################################################################"
+      echo "WARNING: this is a linked git worktree and the main checkout"
+      echo "($main) has no .githooks/pre-commit yet."
+      echo "core.hooksPath is shared by every worktree, so it will point into"
+      echo "this one; once it is removed, the secret scan stops running."
+      echo "After this branch is merged, run from the main checkout:"
+      echo "  sh tools/install-git-hooks.sh --force"
+      echo "################################################################"
+    } >&2
+  fi
+fi
+
 wired=0 skipped=0 bad=0
 
 # $1 = absolute repo dir, $2 = path shown in output
@@ -36,7 +59,11 @@ handle() {
     return
   fi
   if [ "$MODE" = check ]; then
-    echo "NOT WIRED $2 (core.hooksPath = ${cur:-unset})"
+    if [ -n "$cur" ] && ! (cd "$1" && [ -d "$cur" ]); then
+      echo "NOT WIRED $2 (core.hooksPath = $cur does not exist)"
+    else
+      echo "NOT WIRED $2 (core.hooksPath = ${cur:-unset})"
+    fi
     bad=$((bad + 1))
     return
   fi
