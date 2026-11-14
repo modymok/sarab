@@ -1,0 +1,15 @@
+# Secret-scan config for .githooks/pre-commit and the secret-scan workflow
+# (gitleaks loads ./.gitleaks.toml). Keeps every built-in rule; add the ones
+# the defaults miss below.
+
+[extend]
+useDefault = true
+
+# Example custom rule — uncomment and adapt for a vendor key the defaults miss.
+# Keep the regex tight and give it keywords so gitleaks only runs it on lines
+# that can match.
+# [[rules]]
+# id = "example-vendor-api-key"
+# description = "Example vendor API key"
+# regex = '''examplevendor_[A-Za-z0-9]{32}'''
+# keywords = ["examplevendor_"]

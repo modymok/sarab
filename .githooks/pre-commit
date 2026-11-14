@@ -1,0 +1,24 @@
+#!/bin/sh
+# Block commits that contain secrets. gitleaks scans only staged changes.
+# Fails closed: without gitleaks the commit is blocked, never silently passed.
+# Bypass for a known false positive: git commit --no-verify (use sparingly).
+if ! command -v gitleaks >/dev/null 2>&1; then
+  {
+    echo "error: gitleaks is not installed, so this commit was not scanned for secrets."
+    echo "  Install it:  brew install gitleaks"
+    echo "               (other systems: https://github.com/gitleaks/gitleaks#installing)"
+    echo "  Bypass once: git commit --no-verify"
+  } >&2
+  exit 1
+fi
+# .gitleaks.toml extends the default rules with this repo's own; pass it
+# explicitly so the scan never silently falls back to defaults only.
+# A repo without its own (a submodule) uses the superproject's, next to .githooks.
+HOOK_DIR=$(cd "$(dirname "$0")" && pwd)
+if [ -f .gitleaks.toml ]; then
+  gitleaks protect --staged --redact -v --config .gitleaks.toml
+elif [ -f "$HOOK_DIR/../.gitleaks.toml" ]; then
+  gitleaks protect --staged --redact -v --config "$HOOK_DIR/../.gitleaks.toml"
+else
+  gitleaks protect --staged --redact -v
+fi

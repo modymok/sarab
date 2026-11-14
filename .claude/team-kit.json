@@ -1,0 +1,13 @@
+{
+  "projects": [
+    {
+      "path": "."
+    }
+  ],
+  "builderAgents": [],
+  "docsOnly": [
+    "**/*.md",
+    "docs/**",
+    ".claude/**"
+  ]
+}
